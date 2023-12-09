@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import dbConnection from './config/db_connection'
-dotenv.config()
+dotenv.config({ path: './config.env' })
 
 dbConnection()
 
