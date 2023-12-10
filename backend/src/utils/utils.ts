@@ -68,18 +68,12 @@ export const updateEntity = async <T extends BaseDocument>(
     model: Model<T>
 ): Promise<void> => {
     const { id } = req.params;
-    const { userName, email, password } = req.body;
+    const { body } = req;
 
     try {
         const existingEntity = await model.findById(id);
         if (existingEntity) {
-            if (password) {
-                const hashedPassword = await bcrypt.hash(password, 10);
-                existingEntity.password = hashedPassword;
-            }
-
-            existingEntity.userName = userName;
-            existingEntity.email = email;
+            existingEntity.set(body);
 
             const updatedEntity = await existingEntity.save();
             res.status(200).json(updatedEntity);
@@ -91,6 +85,7 @@ export const updateEntity = async <T extends BaseDocument>(
         res.status(500).json({ message: "Failed to update entity" });
     }
 };
+
 
 
 export const deleteEntity = async <T extends BaseDocument>(
