@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import validator from 'validator';
+import BaseDocument from '../types/UserAndRegisrationMethodeTypes'
 
 const User = new Schema({
     userName: {
@@ -25,6 +26,6 @@ const User = new Schema({
     },
 }, { versionKey: false });
 
-const UserModel = model('users', User);
+const UserModel = model<BaseDocument>('users', User);
 
 export default UserModel;
