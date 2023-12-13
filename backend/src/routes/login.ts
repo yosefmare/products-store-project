@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { loginUser } from '../utils/utils'
+import { loginUser } from '../utils/auth/auth'
 import UserModel from '../schemas/User'
 
 class Login {

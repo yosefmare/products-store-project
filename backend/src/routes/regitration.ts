@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { registerEntity } from '../utils/utils'
+import { registerEntity } from '../utils/auth/auth'
 import UserModel from '../schemas/User'
 
 class Registration {
