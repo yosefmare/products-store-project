@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
-import BaseDocument from '../types/UserAndRegisrationMethodeTypes'
+import {BaseDocument} from '../types/UserAndRegisrationMethodeTypes'
 
 
 

@@ -3,7 +3,7 @@ import { generateToken } from '../../jwt/auth';
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
 import TokensModal from '../../schemas/Token';
-import BaseDocument from '../../types/UserAndRegisrationMethodeTypes'
+import {BaseDocument} from '../../types/UserAndRegisrationMethodeTypes'
 
 export const registerEntity = async <T extends BaseDocument>(
     req: Request,
@@ -33,11 +33,12 @@ export const loginUser = async <T extends BaseDocument>(req: Request, res: Respo
         const user = await userModel.findOne({ email });
 
         if (user) {
-            const passwordMatch = await bcrypt.compare(password, user.password);
+            const passwordMatch: boolean = await bcrypt.compare(password, user.password);
 
             if (passwordMatch) {
-                const token = generateToken({ email: user.email, _id: user._id })
+                const token: string = generateToken({ email: user.email, _id: user._id })
 
+                // check if this user token us un the tokens coll
                 const tokenHaveUserId = await TokensModal.findOne({userId: user._id})
 
                 if (!tokenHaveUserId) {

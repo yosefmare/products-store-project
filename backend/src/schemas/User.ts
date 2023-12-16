@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import validator from 'validator';
-import BaseDocument from '../types/UserAndRegisrationMethodeTypes'
+import {BaseDocument} from '../types/UserAndRegisrationMethodeTypes'
 
 const User = new Schema({
     userName: {

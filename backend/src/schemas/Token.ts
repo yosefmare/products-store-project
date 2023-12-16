@@ -1,5 +1,5 @@
 import { Schema, model} from 'mongoose';
-import BaseDocument from '../types/UserAndRegisrationMethodeTypes'
+import {BaseDocument} from '../types/UserAndRegisrationMethodeTypes'
 
 const Tokens = new Schema({
 userId: {

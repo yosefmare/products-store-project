@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import dbConnection from './config/db_connection'
 import Registration from './routes/regitration'
 import Login from './routes/login'
+import { authenticateAndSendToken } from './jwt/auth'
 
 dotenv.config({ path: './config.env' })
 
@@ -15,6 +16,9 @@ const port: number = parseInt(process.env.PORT || "3000")
 const app = express()
 
 app.use(express.json())
+
+// Use the middleware for all routes
+app.use(authenticateAndSendToken);
 
 app.use('/', register.router)
 app.use('/', login.router)
