@@ -1,31 +1,53 @@
 import { Schema, model } from 'mongoose';
 import validator from 'validator';
-import {BaseDocument} from '../types/UserAndRegisrationMethodeTypes'
+import bcrypt from 'bcrypt';
+import { BaseDocument } from '../types/UserAndRegisrationMethodeTypes';
 
-const User = new Schema({
+const userSchema = new Schema({
     userName: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
         required: true,
         validate: {
             validator: (value: string) => validator.isEmail(value),
-            message: 'Email not valid'
+            message: 'Email not valid',
         },
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
         required: true,
         validate: {
             validator: (value: string) => value.length >= 6,
-            message: 'Password must be at least 6 characters long'
+            message: 'Password must be at least 6 characters long',
         },
+        select: false,
     },
 }, { versionKey: false });
 
-const UserModel = model<BaseDocument>('users', User);
+// Middleware to hash the password before saving
+userSchema.pre<BaseDocument>('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(this.password, salt);
+        this.password = hashedPassword;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+});
+
+userSchema.methods.correctPassword = async function (candidatePassword: string, userPassword: string) {
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
+
+const UserModel = model<BaseDocument>('users', userSchema);
 
 export default UserModel;

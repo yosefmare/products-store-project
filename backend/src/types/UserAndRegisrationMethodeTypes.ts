@@ -7,6 +7,7 @@ interface BaseDocument extends Document {
     _id?: string;
     token?: String;
     userId: String;
+    correctPassword?: (candidatePassword: string, userPassword: string) => Promise<boolean>;
 }
 
 interface JwtPayload {

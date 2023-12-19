@@ -2,11 +2,6 @@ import { Request, Response } from 'express';
 import { Model } from 'mongoose';
 import {BaseDocument} from '../types/UserAndRegisrationMethodeTypes'
 
-
-
-
-
-
 export const getAllEntities = async <T extends BaseDocument>(
     req: Request,
     res: Response,
