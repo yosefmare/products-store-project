@@ -4,6 +4,7 @@ import dbConnection from './config/db_connection'
 import Registration from './routes/users/register'
 import Login from './routes/users/login'
 import UsersCrudOperations from './routes/users/users-crud-oparations'
+import cors from 'cors'
 
 dotenv.config({ path: './config.env' })
 
@@ -16,6 +17,8 @@ const login = new Login()
 const usersCruds = new UsersCrudOperations()
 
 app.use(express.json())
+app.use(cors())
+app.use(express.static('public'))
 
 app.use('/', signup.router)
 app.use('/', login.router)

@@ -26,6 +26,9 @@ const userSchema = new Schema({
         },
         select: false,
     },
+    profileImg:{
+        type: String
+    }
 }, { versionKey: false });
 
 // Middleware to hash the password before saving

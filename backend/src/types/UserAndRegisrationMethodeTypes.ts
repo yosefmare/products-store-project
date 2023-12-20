@@ -10,13 +10,6 @@ interface BaseDocument extends Document {
     correctPassword?: (candidatePassword: string, userPassword: string) => Promise<boolean>;
 }
 
-interface JwtPayload {
-    email?: string;
-    _id?: string;
-
-}
-
 export {
     BaseDocument,
-    JwtPayload
 }

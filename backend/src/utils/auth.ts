@@ -1,11 +1,23 @@
 import UserModel from "../schemas/User";
 import { Request, Response } from "express";
-import {sign} from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 
 const signToken = (id: string) => {
     return sign({ id }, process.env.ACCESS_TOKEN_SECRET_KEY, {
         expiresIn: process.env.EXPiRES_TOKEN_DATE
     })
+}
+
+export const verifyToken =  async (req: Request) => {
+    let token = null;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization?.split(' ')[1]
+        const decodedToken = await verify(token, process.env.ACCESS_TOKEN_SECRET_KEY) as {
+            [x: string]: any; userId: string 
+};
+        return decodedToken
+    }
+
 }
 
 export const register = async (req: Request, res: Response) => {
