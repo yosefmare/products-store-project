@@ -1,4 +1,6 @@
 import { Schema, model } from 'mongoose';
+import { PurchasesDocument } from '../types/UserAndRegisrationMethodeTypes';
+
 
 const ObjectId = Schema.Types.ObjectId
 
@@ -14,8 +16,8 @@ const PurchasesSchema = new Schema({
         }
     ],
     date: Date
-})
+},{versionKey: false})
 
-const PurchasesModel = model('purchases', PurchasesSchema)
+const PurchasesModel = model<PurchasesDocument>('purchases', PurchasesSchema)
 
 export default PurchasesModel
