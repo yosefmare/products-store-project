@@ -14,31 +14,29 @@ class UsersCrudOperations {
         this.router.patch('/user/editProfile/:id', (req: Request, res: Response) => updateEntity(req, res, UserModel))
     }
 
-    async setImageProfile(req: Request, res: Response) {
+    private async setImageProfile(req: Request, res: Response) {
         try {
             const userId = await verifyToken(req);
-    
+
             if (userId) {
                 // Remove the "public" prefix from the file path
                 const filePathWithoutPublic = req.file.path.replace('public\\', '');
-    
+
                 const data = await UserModel.findOneAndUpdate(
                     { _id: userId.id },
                     { $set: { profileImg: filePathWithoutPublic } },
                     { new: true }
                 );
-    
-                console.log(filePathWithoutPublic);
+
                 res.json({ status: 'Profile image uploaded successfully', data });
             } else {
                 res.status(401).json({ status: 'Unauthorized' });
             }
         } catch (error) {
-            console.error('Error uploading profile image:', error);
             res.json({ status: 'Profile image upload failed', error });
         }
     }
-    
+
 }
 
 export default UsersCrudOperations
