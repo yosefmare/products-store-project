@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { updateEntity, getAllEntities } from "../../utils/utils";
-import UserModel from "../../schemas/User";
+import UserModel from "../../schemas/Users";
 import { Request, Response } from 'express'
 import upload from "../../utils/multer";
 import { verifyToken } from '../../utils/auth'
