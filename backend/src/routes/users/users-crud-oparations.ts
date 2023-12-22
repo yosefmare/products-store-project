@@ -10,7 +10,6 @@ class UsersCrudOperations {
     constructor() {
         this.router = Router()
         this.router.post('/user/uploadProfileImage', upload.single('file'), this.setImageProfile)
-        this.router.get('/users', (req: Request, res: Response) => getAllEntities(req, res, UserModel))
         this.router.patch('/user/editProfile/:id', (req: Request, res: Response) => updateEntity(req, res, UserModel))
     }
 
