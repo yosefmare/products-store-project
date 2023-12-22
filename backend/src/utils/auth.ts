@@ -13,7 +13,7 @@ export const verifyToken = async (req: Request) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization?.split(' ')[1]
         const decodedToken = await verify(token, process.env.ACCESS_TOKEN_SECRET_KEY) as {
-            [x: string]: any; userId: string
+            [id: string]: any; userId: string
         };
         return decodedToken
     }
