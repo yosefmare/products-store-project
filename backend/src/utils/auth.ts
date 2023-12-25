@@ -56,10 +56,3 @@ export const login = async (req: Request, res: Response) => {
     const token = signToken(user._id, user.role)
     return res.status(200).json({ status: 'success', token })
 }
-
-export const checkUserRole = async (req: Request, res: Response) => {
-    const verified = await verifyToken(req)
-    if (verified) {
-        return verified
-    }
-}

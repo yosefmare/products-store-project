@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
 import { BaseDocument } from '../types/UserAndRegisrationMethodeTypes'
-import { checkUserRole } from "./auth";
+import { verifyToken } from "./auth";
 
 
 export const getAllEntities = async <T extends BaseDocument>(
@@ -120,7 +120,8 @@ export const protectRoute = async (
     res: Response) => {
     try {
         //     check if the user is admin
-        const isVerified = await checkUserRole(req, res)
+        const isVerified = await verifyToken(req)
+
         if (isVerified) {
             return isVerified
         } else{
