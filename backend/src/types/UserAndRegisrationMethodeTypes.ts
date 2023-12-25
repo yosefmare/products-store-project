@@ -5,6 +5,7 @@ interface BaseDocument extends Document {
     email?: string;
     password?: string;
     _id?: string;
+    role?: string;
     token?: String;
     userId: String;
     correctPassword?: (candidatePassword: string, userPassword: string) => Promise<boolean>;

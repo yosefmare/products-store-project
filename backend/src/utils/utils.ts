@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
 import { BaseDocument } from '../types/UserAndRegisrationMethodeTypes'
+import { checkUserRole } from "./auth";
+
 
 export const getAllEntities = async <T extends BaseDocument>(
     req: Request,
@@ -60,11 +62,11 @@ export const createEntity = async <T extends BaseDocument>(
     const { body } = req;
 
     try {
-        const newEntity= await model.create(body);
+        const newEntity = await model.create(body);
         res.status(201).json({ massage: 'create success', newEntity })
     } catch (error) {
-        res.status(500).json({ massage: 'create filed' })
         console.error(error);
+        res.status(201).json({ massage: 'creation filed'})
     }
 }
 
@@ -100,7 +102,7 @@ export const deleteEntity = async <T extends BaseDocument>(
     model: Model<T>
 ): Promise<void> => {
     const { id } = req.params;
-    try {
+    try {   
         const deletedEntity = await model.findByIdAndDelete(id);
         if (deletedEntity) {
             res.status(200).json({ message: "Entity deleted successfully" });
@@ -111,4 +113,22 @@ export const deleteEntity = async <T extends BaseDocument>(
         console.error(error);
         res.status(500).json({ message: "Failed to delete entity" });
     }
-};
+}
+
+export const protectRoute = async (
+    req: Request,
+    res: Response) => {
+    try {
+        //     check if the user is admin
+        const isVerified = await checkUserRole(req, res)
+        if (isVerified) {
+            return isVerified
+        } else{
+            throw new Error('calling model filed')
+        }
+
+    } catch (error) {
+        console.log(error);
+        throw new Error('Fetching filed')
+    }
+}

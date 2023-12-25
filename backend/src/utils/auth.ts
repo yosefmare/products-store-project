@@ -2,8 +2,8 @@ import UserModel from "../schemas/Users";
 import { Request, Response } from "express";
 import { sign, verify } from "jsonwebtoken";
 
-const signToken = (id: string) => {
-    return sign({ id }, process.env.ACCESS_TOKEN_SECRET_KEY, {
+const signToken = (id: string, role: string) => {
+    return sign({ id, role }, process.env.ACCESS_TOKEN_SECRET_KEY, {
         expiresIn: process.env.EXPiRES_TOKEN_DATE
     })
 }
@@ -22,15 +22,15 @@ export const verifyToken = async (req: Request) => {
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { userName, email, password } = req.body
+        const { userName, email, password, role } = req.body
 
         const emailExist = await UserModel.findOne({ email })
 
         if (emailExist) {
             res.status(201).json({ status: 'email already Exist' })
         } else {
-            const newUser = await UserModel.create({ userName, email, password })
-            const token = signToken(newUser._id)
+            const newUser = await UserModel.create({ userName, email, password, role })
+            const token = signToken(newUser._id, newUser.role)
             res.status(201).json({ data: { newUser }, token, status: 'user register success' })
         }
 
@@ -53,6 +53,13 @@ export const login = async (req: Request, res: Response) => {
         return res.status(404).json({ status: 'invalid email or password' })
     }
 
-    const token = signToken(user._id)
-    res.status(200).json({ status: 'success', token })
+    const token = signToken(user._id, user.role)
+    return res.status(200).json({ status: 'success', token })
+}
+
+export const checkUserRole = async (req: Request, res: Response) => {
+    const verified = await verifyToken(req)
+    if (verified) {
+        return verified
+    }
 }
