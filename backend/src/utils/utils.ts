@@ -41,7 +41,7 @@ export const getEntityById = async <T extends BaseDocument>(
                 res.status(404).json({ message: "Entity not found" });
             }
         } else {
-            const entity = (await model.findById(id)).populate(populateKeys);
+            const entity = await model.findById(id).populate(populateKeys);
             if (entity) {
                 res.status(200).json(entity);
             } else {

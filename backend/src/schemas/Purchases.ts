@@ -15,7 +15,7 @@ const PurchasesSchema = new Schema({
             ref: 'products'
         }
     ],
-    date: Date
+    date: {type:Date, default: Date.now()}
 },{versionKey: false})
 
 const PurchasesModel = model<PurchasesDocument>('purchases', PurchasesSchema)
