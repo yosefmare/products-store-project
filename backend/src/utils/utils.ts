@@ -70,6 +70,24 @@ export const createEntity = async <T extends BaseDocument>(
     }
 }
 
+
+export const createEntityWithFile = async <T extends BaseDocument>(
+    req: Request,
+    res: Response,
+    model: Model<T>
+): Promise<void> => {
+    const { body } = req;
+    const { filename } = req.file;
+
+    try {
+        const newEntity = await model.create({...body, productImg: filename });
+        res.status(201).json({ massage: 'create success', newEntity })
+    } catch (error) {
+        console.error(error);
+        res.status(201).json({ massage: 'creation filed'})
+    }
+}
+
 export const updateEntity = async <T extends BaseDocument>(
     req: Request,
     res: Response,
