@@ -1,9 +1,8 @@
+import LoginAndRegisterForm from "./LoginAndRegisterForm";
+
 const Login = () => {
   return (
-    <form>
-      <input type="text" placeholder="Email " />
-      <input type="password" placeholder="Password" />
-    </form>
+    <LoginAndRegisterForm title="Log in" operation="Login" path="/register" option="Register" />
   );
 };
 
