@@ -66,7 +66,7 @@ export const createEntity = async <T extends BaseDocument>(
         res.status(201).json({ massage: 'create success', newEntity })
     } catch (error) {
         console.error(error);
-        res.status(201).json({ massage: 'creation filed' })
+        res.status(500).json({ massage: 'creation filed' })
     }
 }
 
