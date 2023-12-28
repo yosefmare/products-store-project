@@ -1,7 +1,7 @@
 import multer, {StorageEngine, Multer} from 'multer'
 const storage: StorageEngine = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public')
+        cb(null, '../frontend/produts-stroe/public')
     },
     filename: function (req, file, cb) {
         const fileName = `${Date.now()}_${file.originalname}`
