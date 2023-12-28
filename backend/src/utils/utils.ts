@@ -66,7 +66,7 @@ export const createEntity = async <T extends BaseDocument>(
         res.status(201).json({ massage: 'create success', newEntity })
     } catch (error) {
         console.error(error);
-        res.status(201).json({ massage: 'creation filed'})
+        res.status(201).json({ massage: 'creation filed' })
     }
 }
 
@@ -80,11 +80,11 @@ export const createEntityWithFile = async <T extends BaseDocument>(
     const { filename } = req.file;
 
     try {
-        const newEntity = await model.create({...body, productImg: filename });
+        const newEntity = await model.create({ ...body, productImg: filename });
         res.status(201).json({ massage: 'create success', newEntity })
     } catch (error) {
         console.error(error);
-        res.status(201).json({ massage: 'creation filed'})
+        res.status(201).json({ massage: 'creation filed' })
     }
 }
 
@@ -120,7 +120,7 @@ export const deleteEntity = async <T extends BaseDocument>(
     model: Model<T>
 ): Promise<void> => {
     const { id } = req.params;
-    try {   
+    try {
         const deletedEntity = await model.findByIdAndDelete(id);
         if (deletedEntity) {
             res.status(200).json({ message: "Entity deleted successfully" });
@@ -142,12 +142,11 @@ export const protectRoute = async (
 
         if (isVerified) {
             return isVerified
-        } else{
-            throw new Error('calling model filed')
+        } else {
         }
-
+        
     } catch (error) {
         console.log(error);
-        throw new Error('Fetching filed')
+        res.status(404).json({ massage: 'Token has expired' })
     }
 }

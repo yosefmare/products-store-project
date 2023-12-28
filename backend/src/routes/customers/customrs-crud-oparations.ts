@@ -25,10 +25,12 @@ class CustomersCrudOperations {
         //     check if the user is admin
         if (req.headers.authorization) {
             const isAdmin = await protectRoute(req, res)
-            if (isAdmin.role === 'admin') {
-                await model()
-            } else {
-                res.status(404).json({ message: 'User ar not a admin' });
+            if (isAdmin) {
+                if (isAdmin.role === 'admin') {
+                    await model()
+                } else {
+                    res.status(404).json({ message: 'User ar not a admin' });
+                }
             }
         } else {
             res.status(401).json({ message: 'Unauthorized - Authorization header missing' });
