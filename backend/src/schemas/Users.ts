@@ -31,7 +31,8 @@ const userSchema = new Schema({
         required: true
     },
     profileImg:{
-        type: String
+        type: String,
+        default: ''
     }
 }, { versionKey: false });
 
