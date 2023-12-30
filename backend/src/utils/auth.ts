@@ -54,5 +54,5 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = signToken(user._id, user.role)
-    return res.status(200).json({ status: 'success', token })
+    return res.status(200).json({ status: 'success',user, token })
 }
