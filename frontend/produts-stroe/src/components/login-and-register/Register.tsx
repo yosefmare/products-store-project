@@ -1,9 +1,9 @@
-import LoginAndRegisterForm from "./LoginAndRegisterForm";
+import RegisterForm from '../../forms/RegistrationForm'
 
 const Register = () => {
   return (
     <>
-      <LoginAndRegisterForm title="Register" operation="Register" path="/login" option="Login"/>
+    <RegisterForm/>
     </>
   );
 };
