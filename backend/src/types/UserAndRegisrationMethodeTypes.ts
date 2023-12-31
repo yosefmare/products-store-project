@@ -1,6 +1,7 @@
 import { Document, Types } from 'mongoose'
 
 interface BaseDocument extends Document {
+    [x: string]: any;
     userName?: string;
     email?: string;
     password?: string;

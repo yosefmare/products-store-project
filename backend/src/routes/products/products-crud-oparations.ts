@@ -3,24 +3,22 @@ import { getAllEntities, getEntityById, createEntityWithFile, updateEntity, dele
 import productsModel from "../../schemas/Products";
 import { Request, Response } from 'express'
 import CustomersCrudOperations from '../customers/customrs-crud-oparations'
-import upload from "../../utils/multer";
+import {upload} from "../../file-managment/multer";
+import { protectionRoutesHandler } from "../../utils/auth";
 
-class ProductsCrudOperations extends CustomersCrudOperations {
-    constructor() {
-        super()
-        this.router.post('/products/addProduct', upload.single('file'), (req: Request, res: Response) => {
-            this.protectionRoutesHandler(req, res, createEntityWithFile.bind(null, req, res, productsModel))
-        })
-        this.router.patch('/products/editProduct/:id', (req: Request, res: Response) => {
-            this.protectionRoutesHandler(req, res, updateEntity.bind(null, req, res, productsModel))
-        })
-        this.router.delete('/products/deleteProduct/:id', (req: Request, res: Response) => {
-            this.protectionRoutesHandler(req, res, deleteEntity.bind(null, req, res, productsModel))
-        })
-        this.router.get('/products', (req, res) => getAllEntities(req, res, productsModel))
-        this.router.get('/products/:id', (req, res) => getEntityById(req, res, productsModel))
-    }
+const router = Router()
 
-}
+    router.post('/addProduct', upload.single('file'), (req: Request, res: Response) => {
+        protectionRoutesHandler(req, res, createEntityWithFile.bind(null, req, res, productsModel))
+        })
+    .patch('/editProduct/:id', (req: Request, res: Response) => {
+        protectionRoutesHandler(req, res, updateEntity.bind(null, req, res, productsModel))
+        })
+    .delete('/deleteProduct/:id', (req: Request, res: Response) => {
+        protectionRoutesHandler(req, res, deleteEntity.bind(null, req, res, productsModel))
+        })
+    .get('/getAllProducts', (req, res) => getAllEntities(req, res, productsModel))
+    .get('/getProduct/:id', (req, res) => getEntityById(req, res, productsModel))
 
-export default ProductsCrudOperations
+
+export default router

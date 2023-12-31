@@ -1,6 +1,7 @@
 import UserModel from "../schemas/Users";
 import { Request, Response } from "express";
 import { sign, verify } from "jsonwebtoken";
+import { protectRoute } from "./utils";
 
 const signToken = (id: string, role: string) => {
     return sign({ id, role }, process.env.ACCESS_TOKEN_SECRET_KEY, {
@@ -29,9 +30,9 @@ export const register = async (req: Request, res: Response) => {
         if (emailExist) {
             res.status(201).json({ status: 'email already Exist' })
         } else {
-            const newUser = await UserModel.create({ userName, email, password, role })
-            const token = signToken(newUser._id, newUser.role)
-            res.status(201).json({ data: { newUser }, token, status: 'user register success' })
+            const user = await UserModel.create({ userName, email, password, role })
+            const token = signToken(user._id, user.role)
+            res.status(201).json({  user , token, status: 'user register success' })
         }
 
     } catch (error) {
@@ -55,4 +56,20 @@ export const login = async (req: Request, res: Response) => {
 
     const token = signToken(user._id, user.role)
     return res.status(200).json({ status: 'success',user, token })
+}
+
+export const  protectionRoutesHandler = async (req: Request, res: Response, model: Function) =>{
+    //     check if the user is admin
+    if (req.headers.authorization) {
+        const isAdmin = await protectRoute(req, res)
+        if (isAdmin) {
+            if (isAdmin.role === 'admin') {
+                await model()
+            } else {
+                res.status(404).json({ message: 'User ar not a admin' });
+            }
+        }
+    } else {
+        res.status(401).json({ message: 'Unauthorized - Authorization header missing' });
+    }
 }
