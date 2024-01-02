@@ -7,10 +7,12 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.use(auth)
-router.use(usersCruds)
-router.use(purchasesCrudOperations)
-router.use(customersCruds)
-router.use(productsCruds)
+router.use(
+    auth,
+    usersCruds,
+    purchasesCrudOperations,
+    customersCruds,
+    productsCruds
+    )
 
 export default router
