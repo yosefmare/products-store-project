@@ -1,11 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import dbConnection from './config/db_connection'
-import auth from './routes/users/login-and-register'
-import usersCruds from './routes/users/users-crud-oparations'
-import purchasesCrudOperations from './routes/perchases/purchases-crud-oparations'
-import customersCruds from './routes/customers/customrs-crud-oparations'
-import productsCruds from './routes/products/products-crud-oparations'
+import routes from './routes/routes-index'
 import cors from 'cors'
 
 dotenv.config({ path: './config.env' })
@@ -19,11 +15,7 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static('public'))
 
-app.use('/auth', auth)
-app.use('/users', usersCruds)
-app.use('/customers', customersCruds)
-app.use('/purchases',purchasesCrudOperations )
-app.use('/products', productsCruds)
+app.use(routes)
 
 app.listen(port, () => {
     console.log(`the server is running on port: ${port}`);

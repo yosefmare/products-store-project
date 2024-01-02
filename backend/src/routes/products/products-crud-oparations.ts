@@ -8,17 +8,17 @@ import { protectionRoutesHandler } from "../../utils/auth";
 
 const router = Router()
 
-    router.post('/addProduct', upload.single('file'), (req: Request, res: Response) => {
+    router.post('/products/addProduct', upload.single('file'), (req: Request, res: Response) => {
         protectionRoutesHandler(req, res, createEntityWithFile.bind(null, req, res, productsModel))
         })
-    .patch('/editProduct/:id', (req: Request, res: Response) => {
+    .patch('/products/editProduct/:id', (req: Request, res: Response) => {
         protectionRoutesHandler(req, res, updateEntity.bind(null, req, res, productsModel))
         })
-    .delete('/deleteProduct/:id', (req: Request, res: Response) => {
+    .delete('/products/deleteProduct/:id', (req: Request, res: Response) => {
         protectionRoutesHandler(req, res, deleteEntity.bind(null, req, res, productsModel))
         })
-    .get('/getAllProducts', (req, res) => getAllEntities(req, res, productsModel))
-    .get('/getProduct/:id', (req, res) => getEntityById(req, res, productsModel))
+    .get('/products/getAllProducts', (req, res) => getAllEntities(req, res, productsModel))
+    .get('/products/getProduct/:id', (req, res) => getEntityById(req, res, productsModel))
 
 
 export default router
