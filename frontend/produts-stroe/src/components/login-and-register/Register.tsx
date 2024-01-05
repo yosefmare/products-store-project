@@ -1,6 +1,6 @@
 import RegisterForm from '../../forms/RegistrationForm'
 
-const Register = () => {
+const Register = ():JSX.Element => {
   return (
     <>
     <RegisterForm/>

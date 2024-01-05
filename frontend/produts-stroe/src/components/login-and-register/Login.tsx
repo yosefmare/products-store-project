@@ -1,6 +1,6 @@
 import LoginForm from '../../forms/LoginFrom'
 
-const Login = () => {
+const Login = (): JSX.Element => {
   return (
     <LoginForm/>
   );
