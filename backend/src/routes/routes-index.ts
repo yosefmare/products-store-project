@@ -13,6 +13,6 @@ router.use(
     purchasesCrudOperations,
     customersCruds,
     productsCruds
-    )
+)
 
 export default router

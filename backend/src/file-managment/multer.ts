@@ -39,13 +39,13 @@ const setImageProfile = async (req: Request, res: Response, model: Model<BaseDoc
             // Remove the "public" prefix from the file path
             const filePathWithoutPublic = req.file.path.replace('..\\frontend\\produts-stroe\\public\\', '');
 
-            const data = await model.findOneAndUpdate(
+            const user = await model.findOneAndUpdate(
                 { _id: userId.id },
                 { $set: { profileImg: filePathWithoutPublic } },
                 { new: true }
             );
 
-            res.json({ status: 'Profile image uploaded successfully', data });
+            res.json({ status: 'Profile image uploaded successfully', user });
         } else {
             res.status(401).json({ status: 'Unauthorized' });
         }
