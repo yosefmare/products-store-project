@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Board from "../components/login-and-register/Board";
 import Login from "../components/login-and-register/Login";
 import Register from "../components/login-and-register/Register";
+import NavBar from "../components/navbar/NavBar";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,27 @@ const router = createBrowserRouter([
                     <Register />
                 </div>
             </Board>
+    },
+    {
+        path: '/products',
+        element:
+            <div>
+                <NavBar />
+            </div>
+    },
+    {
+        path: '/customers',
+        element:
+            <div>
+                <NavBar />
+            </div>
+    },
+    {
+        path: '/purchases',
+        element:
+            <div>
+                <NavBar />
+            </div>
     },
 ]);
 
