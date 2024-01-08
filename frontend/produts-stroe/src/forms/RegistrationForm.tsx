@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { sendFormData } from "../handelers/handelers";
-const RegistrationFrom = () => {
 
+const RegistrationFrom = () => {
+  const navigates = useNavigate()
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -23,7 +24,7 @@ const RegistrationFrom = () => {
       </select>
       <button onClick={(e) => {
         e.preventDefault()
-        sendFormData('http://localhost:8000/auth/register', formData)
+        sendFormData('http://localhost:8000/auth/register', formData, navigates)
       }} className=" p-2 bg-sky-600 text-white cursor-pointer active:bg-sky-700">Register</button>
       <div className=" text-center">
         <Link to={'/login'} className=" text-sky-600 underline font-medium">Login</Link>

@@ -1,24 +1,40 @@
 import { createEntity } from "../utils/utils";
 
-type sendFormDataStateTypes = {
+interface sendFormDataStateTypes {
     userName?: string;
     email: string;
     password: string
     role?: string
 }
 
-export const sendFormData = async (url: string, state: sendFormDataStateTypes) => {
-    const userData = await createEntity(url, state)
-    if (userData) {
-        console.log(userData);
-        const { user, token } = userData
-        const userInfo = JSON.stringify({ userName: user.userName, profileImg: user.profileImg })
-        localStorage.setItem('userInfo', userInfo)
-        if (token) {
-            const userToken = JSON.stringify({ token })
-            localStorage.setItem('token', userToken)
+interface UserDataTypes extends sendFormDataStateTypes {
+    profileImg: string
+}
+
+export const sendFormData = async (url: string, state: sendFormDataStateTypes, navigates?: Function) => {
+    try {
+        const { data: userData, status } = await createEntity(url, state)
+        if (navigates) {
+            if (status === 200 || 201) {
+                if (userData) {
+                    console.log(userData);
+                    setUserDataInLocalStorage(userData)
+                    navigates('/products')
+                }
+            }
         }
+    } catch (err) {
+        console.log(err);
     }
+}
+
+const setUserDataInLocalStorage = (userData: { user: UserDataTypes; token: string; }) => {
+    const { user, token } = userData
+    const userInfo = JSON.stringify({ userName: user.userName, profileImg: user.profileImg })
+    localStorage.setItem('userInfo', userInfo)
+    const userToken = JSON.stringify({ token })
+    localStorage.setItem('token', userToken)
+
 }
 
 export const getUserDataFromLocalStorage = () => {
