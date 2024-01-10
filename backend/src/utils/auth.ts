@@ -24,20 +24,21 @@ export const verifyToken = async (req: Request) => {
 export const register = async (req: Request, res: Response) => {
     try {
         const { userName, email, password, role } = req.body
-
-        const emailExist = await UserModel.findOne({ email })
-
-        if (emailExist) {
-            res.status(201).json({ status: 'email already Exist' })
+        if (password && email && role && userName) {
+            const emailExist = await UserModel.findOne({ email })
+            if (emailExist) {
+                res.status(404).json({ status: 'email already Exist' })
+            } else {
+                const user = await UserModel.create({ userName, email, password, role })
+                const token = signToken(user._id, user.role)
+                res.status(201).json({ user, token, status: 'user register success' })
+            }
         } else {
-            const user = await UserModel.create({ userName, email, password, role })
-            const token = signToken(user._id, user.role)
-            res.status(201).json({  user , token, status: 'user register success' })
+            res.status(404).json({ status: 'please fill the fields to continue' })
         }
 
     } catch (error) {
         res.status(500).json(error)
-
     }
 }
 
@@ -55,10 +56,10 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = signToken(user._id, user.role)
-    return res.status(200).json({ status: 'success',user, token })
+    return res.status(200).json({ status: 'success', user, token })
 }
 
-export const  protectionRoutesHandler = async (req: Request, res: Response, model: Function) =>{
+export const protectionRoutesHandler = async (req: Request, res: Response, model: Function) => {
     //     check if the user is admin
     if (req.headers.authorization) {
         const isAdmin = await protectRoute(req, res)
