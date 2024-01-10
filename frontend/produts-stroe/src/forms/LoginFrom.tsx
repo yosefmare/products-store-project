@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { errorChecker, sendFormData } from "../handelers/handelers";
+import { errorChecker, handelSendLoginAndRegisterFormData } from "../handelers/handelers";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import ErrorModel from "../ui-models/ErrorModel";
@@ -20,7 +20,7 @@ const LoginAndRegisterForm = (): JSX.Element => {
             <button onClick={(e) => {
                 e.preventDefault()
                 errorChecker(
-                    sendFormData('http://localhost:8000/auth/login', formData, navigates),
+                    handelSendLoginAndRegisterFormData('http://localhost:8000/auth/login', formData, navigates),
                     setIsError
 
                 )

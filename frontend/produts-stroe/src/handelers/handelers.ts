@@ -11,13 +11,13 @@ interface UserDataTypes extends sendFormDataStateTypes {
     profileImg: string
 }
 
-export const sendFormData = async (url: string, state: sendFormDataStateTypes, navigates?: Function) => {
+export const handelSendLoginAndRegisterFormData = async (url: string, state: sendFormDataStateTypes, navigates?: Function) => {
     try {
         const res = await createEntity(url, state)
         if (res) {
             const { data: userData, status, response} = res
             if (navigates) {
-                if (status === 201) {
+                if (status === 200 || 201) {
                     if (userData) {
                         console.log(userData);
                         setUserDataInLocalStorage(userData)

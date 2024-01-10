@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { errorChecker, sendFormData } from "../handelers/handelers";
+import { errorChecker, handelSendLoginAndRegisterFormData } from "../handelers/handelers";
 import ErrorModel from "../ui-models/ErrorModel";
 
 const RegistrationFrom = () => {
@@ -28,7 +28,7 @@ const RegistrationFrom = () => {
       <button onClick={(e) => {
         e.preventDefault()
         errorChecker(
-          sendFormData('http://localhost:8000/auth/register', formData, navigates),
+          handelSendLoginAndRegisterFormData('http://localhost:8000/auth/register', formData, navigates),
           setIsError
         )
       }} className=" p-2 bg-sky-600 text-white cursor-pointer active:bg-sky-700">Register</button>
