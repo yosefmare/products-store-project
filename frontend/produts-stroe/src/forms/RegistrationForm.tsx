@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { sendFormData } from "../handelers/handelers";
+import { errorChecker, sendFormData } from "../handelers/handelers";
+import ErrorModel from "../ui-models/ErrorModel";
 
 const RegistrationFrom = () => {
   const navigates = useNavigate()
+  const [isError, setIsError] = useState({ status: false, message: '' });
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -22,9 +24,13 @@ const RegistrationFrom = () => {
         <option>admin</option>
         <option>user</option>
       </select>
+      <ErrorModel display={isError.status} message={isError.message}/>
       <button onClick={(e) => {
         e.preventDefault()
-        sendFormData('http://localhost:8000/auth/register', formData, navigates)
+        errorChecker(
+          sendFormData('http://localhost:8000/auth/register', formData, navigates),
+          setIsError
+        )
       }} className=" p-2 bg-sky-600 text-white cursor-pointer active:bg-sky-700">Register</button>
       <div className=" text-center">
         <Link to={'/login'} className=" text-sky-600 underline font-medium">Login</Link>
