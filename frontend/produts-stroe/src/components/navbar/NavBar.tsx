@@ -45,7 +45,7 @@ const NavBar = (): JSX.Element => {
 
                 {/* features */}
                 <div className=' ml-4'>
-                    {!darkMode ? <MdDarkMode className="text-3xl" onClick={() => setUDarkMode(true)} /> : <MdLightMode className="text-3xl" onClick={() => setUDarkMode(false)} />}
+                    {!darkMode ? <MdDarkMode className="text-3xl" onClick={() => setUDarkMode(!darkMode)} /> : <MdLightMode className="text-3xl" onClick={() => setUDarkMode(!darkMode)} />}
                 </div>
 
                 {/* main nav content */}
