@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { Headers } from '../types/globalTypes';
 
-type Headers = Record<string, string | string[]>;
 
 export const createEntity = async (path: string, info: any, headers?: Headers): Promise<any> => {
     try {
