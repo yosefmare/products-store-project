@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAllEntity } from "../utils/utils"
+import { createEntity, getAllEntity } from "../utils/utils"
+import { AddProductFunctionObject } from "../types/globalTypes"
 
 interface Products {
     _id: string,
@@ -22,6 +23,11 @@ export const getAllProduts = createAsyncThunk('getAllProduts', async () => {
     const {data} = await getAllEntity('http://localhost:8000/products/getAllProducts')
     return data
 })
+export const addProduct = createAsyncThunk('addProduts', async ({productData, headers}: AddProductFunctionObject ) => {
+    const {data} = await createEntity('http://localhost:8000/products/addProduct', productData, headers)
+    console.log(data);
+    return data
+})
 
 export const productsSlice = createSlice({
     name: 'products',
@@ -32,6 +38,9 @@ export const productsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getAllProduts.fulfilled, (state, action) => {
             state.products = action.payload
+        })
+        builder.addCase(addProduct.fulfilled, (state, action) => {
+            state.products.push(action.payload)
         })
     }
 })
