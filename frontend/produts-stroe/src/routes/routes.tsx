@@ -3,6 +3,7 @@ import Board from "../components/login-and-register/Board";
 import Login from "../components/login-and-register/Login";
 import Register from "../components/login-and-register/Register";
 import NavBar from "../components/navbar/NavBar";
+import AddProduct from "../forms/products/AddProduct";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
         element:
             <div>
                 <NavBar />
+            </div>
+    },
+    {
+        path: '/products/AddProduct',
+        element:
+            <div>
+                <NavBar />
+                <AddProduct/>
             </div>
     },
     {
