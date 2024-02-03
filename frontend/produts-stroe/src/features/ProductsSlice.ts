@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { createEntity, getAllEntity } from "../utils/utils"
-import { AddProductFunctionObject } from "../types/globalTypes"
+import { createSlice } from "@reduxjs/toolkit"
+import { addProduct, getAllProduts } from "./api/productsAsyncThunk.api"
 
 interface Products {
     _id: string,
@@ -8,26 +7,23 @@ interface Products {
     price: number
     quantity: number
     productImg: string,
-    category:string[]
+    category: string[]
 }
 
 interface ProdutsState {
-    products: Products[]
+    products: Products[];
+    loading: boolean;
+    error: null | string;
 }
 
 const initialState: ProdutsState = {
-    products: []
+    products: [],
+    loading: false,
+    error: null
+
 }
 
-export const getAllProduts = createAsyncThunk('getAllProduts', async () => {
-    const {data} = await getAllEntity('http://localhost:8000/products/getAllProducts')
-    return data
-})
-export const addProduct = createAsyncThunk('addProduts', async ({productData, headers}: AddProductFunctionObject ) => {
-    const {data} = await createEntity('http://localhost:8000/products/addProduct', productData, headers)
-    console.log(data);
-    return data
-})
+
 
 export const productsSlice = createSlice({
     name: 'products',
@@ -39,7 +35,13 @@ export const productsSlice = createSlice({
         builder.addCase(getAllProduts.fulfilled, (state, action) => {
             state.products = action.payload
         })
-        builder.addCase(addProduct.fulfilled, (state, action) => {
+
+        builder
+        .addCase(addProduct.pending, (state) => {
+            state.loading = true
+        })
+        .addCase(addProduct.fulfilled, (state, action) => {
+            state.loading = false
             state.products.push(action.payload)
         })
     }
