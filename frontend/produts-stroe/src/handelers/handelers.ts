@@ -59,7 +59,7 @@ export const errorChecker = async (entity: Promise<any>, setState: Function) => 
         if (error) {
             const { data } = error
             const { errors } = data
-            setState({ status: true, message: data.status })
+            setState({ status: true, message: data.message })
 
 // check if the user enter a valid email and password
             if (errors.email) {
