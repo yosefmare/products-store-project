@@ -63,10 +63,10 @@ export const createEntity = async <T extends BaseDocument>(
 
     try {
         const newEntity = await model.create(body);
-        res.status(201).json({ massage: 'create success', newEntity })
+        res.status(201).json({ message: 'create success', newEntity })
     } catch (error) {
         console.error(error);
-        res.status(500).json({ massage: 'creation filed' })
+        res.status(500).json({ message: 'creation filed' })
     }
 }
 
@@ -75,16 +75,20 @@ export const createEntityWithFile = async <T extends BaseDocument>(
     req: Request,
     res: Response,
     model: Model<T>
-): Promise<void> => {
+): Promise<any> => {
     const { body } = req;
-    const { filename } = req.file;
-
+    
     try {
-        const newEntity = await model.create({ ...body, productImg: filename });
-        res.status(201).json({ massage: 'create success', newEntity })
+        if (!req.file) {
+            return res.status(404).json({ message: 'create felid please fill all the filed' })
+        } else {
+            const { filename } = req.file;
+            const newEntity = await model.create({ ...body, productImg: filename });
+            return res.status(201).json({ message: 'create success', newEntity })
+        }
     } catch (error) {
         console.error(error);
-        res.status(201).json({ massage: 'creation filed' })
+        res.status(500).json({ message: 'creation filed' })
     }
 }
 
@@ -144,9 +148,9 @@ export const protectRoute = async (
             return isVerified
         } else {
         }
-        
+
     } catch (error) {
         console.log(error);
-        res.status(404).json({ massage: 'Token has expired' })
+        res.status(404).json({ message: 'Token has expired' })
     }
 }

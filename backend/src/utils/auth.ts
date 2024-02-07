@@ -47,16 +47,16 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body
 
     if (!email || !password) {
-        return res.status(404).json({ status: 'please provide a valid email amd password' })
+        return res.status(404).json({ message: 'please provide a valid email amd password' })
     }
 
     const user = await UserModel.findOne({ email }).select('+password')
     if (!user || !(await user.correctPassword(password, user.password))) {
-        return res.status(404).json({ status: 'invalid email or password' })
+        return res.status(404).json({ message: 'invalid email or password' })
     }
 
     const token = signToken(user._id, user.role)
-    return res.status(200).json({ status: 'success', user, token })
+    return res.status(200).json({ message: 'success', user, token })
 }
 
 export const protectionRoutesHandler = async (req: Request, res: Response, model: Function) => {
@@ -67,7 +67,7 @@ export const protectionRoutesHandler = async (req: Request, res: Response, model
             if (isAdmin.role === 'admin') {
                 await model()
             } else {
-                res.status(404).json({ message: 'User ar not a admin' });
+                res.status(401).json({ message: 'User ar not a admin' });
             }
         }
     } else {
