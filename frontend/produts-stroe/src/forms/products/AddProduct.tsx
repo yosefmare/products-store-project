@@ -3,12 +3,16 @@ import { getUserDataFromLocalStorage } from '../../handelers/handelers';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
+import MessagePopup from '../../ui-models/MessagePopup';
+import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+
 
 const AddProduct = () => {
     const [adminToken, setAdminToken] = useState('');
+    const [modalDisplay, setModalDisplay] = useState<boolean>(false);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    const loading: boolean = useAppSelector((state) => state.productsSlice.loading)
+    const productsState = useAppSelector((state) => state.productsSlice)
 
     const dispatch = useAppDispatch()
 
@@ -18,6 +22,7 @@ const AddProduct = () => {
             setAdminToken(adminInfo.token.token);
         }
     }, []);
+
 
     const handleCheckboxChange = (category: string): void => {
         // Check if the category is already selected
@@ -42,11 +47,34 @@ const AddProduct = () => {
         })
 
         dispatch(addProduct({ productData: formData, headers: { 'Authorization': `Bearer ${adminToken}` } }))
+        setModalDisplay(true)
+        setTimeout(() => {
+            setModalDisplay(false)
+        }, 1500)
     }
 
     return (
         <>
-        <Spinner visibility={loading}/>
+            {productsState.error ?
+                <MessagePopup
+                    icon={<AiFillCloseCircle
+                        className="text-3xl"
+                    />}
+                    message={productsState.error}
+                    visibility={modalDisplay}
+                />
+                :
+                <MessagePopup
+                    icon={<AiFillCheckCircle
+                        className="text-3xl"
+                    />}
+                    message={productsState.success}
+                    visibility={modalDisplay}
+                />
+
+            }
+
+            <Spinner visibility={productsState.loading} />
             <form encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmitForm(e)
