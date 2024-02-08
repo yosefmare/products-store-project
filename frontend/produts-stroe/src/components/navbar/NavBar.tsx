@@ -51,7 +51,7 @@ const NavBar = (): JSX.Element => {
                 {/* main nav content */}
                 <ul className='flex gap-10'>
                     {
-                        navLinks.map((content, index) => <li key={index} className='px-3 py-2 bg-sky-600 rounded-md text-white'><Link to={content.path}>{content.content}</Link></li>)
+                        navLinks.map((content, index) => <li key={index} className='btn'><Link to={content.path}>{content.content}</Link></li>)
                     }
                 </ul>
 

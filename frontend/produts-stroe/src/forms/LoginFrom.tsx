@@ -14,8 +14,16 @@ const LoginAndRegisterForm = (): JSX.Element => {
     return (
         <form className=" flex flex-col gap-6">
             <h1 className=" text-center font-medium text-xl">Login</h1>
-            <input onChange={(e) => setFormData({ ...formData, email: e.target.value })} className=" rounded-sm px-6 py-1" type="text" placeholder="Email " />
-            <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className=" rounded-sm px-6 py-1" type="password" placeholder="Password" />
+           
+            <div className="outline-form-input">
+                <input onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="input-form" type="text" placeholder="" />
+                <label htmlFor="Email" className="input-form-label">Email</label>
+            </div>
+            
+            <div className="outline-form-input">
+                <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="input-form" type="password" placeholder="" />
+                <label htmlFor="Password" className="input-form-label">Password</label>
+            </div>
             <ErrorModel display={isError.status} message={isError.message} />
             <button onClick={(e) => {
                 e.preventDefault()

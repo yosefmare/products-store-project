@@ -16,14 +16,26 @@ const RegistrationFrom = () => {
   return (
     <form className=" flex flex-col gap-6">
       <h1 className=" text-center font-medium text-xl">Register</h1>
-      <input onChange={(e) => setFormData({ ...formData, userName: e.target.value })} className=" rounded-sm px-6 py-1" type="text" placeholder="userName " />
-      <input onChange={(e) => setFormData({ ...formData, email: e.target.value })} className=" rounded-sm px-6 py-1" type="text" placeholder="Email " />
-      <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className=" rounded-sm px-6 py-1" type="password" placeholder="Password" />
-      <select onChange={(e) => setFormData({ ...formData, role: e.target.value })} className=" select rounded-sm px-6 py-1">
-        <option hidden>role</option>
-        <option>admin</option>
-        <option>user</option>
-      </select>
+     
+      <div className="outline-form-input">
+         <input onChange={(e) => setFormData({ ...formData, userName: e.target.value })} className=" input-form" type="text" placeholder="" />
+         <label htmlFor="User Name" className="input-form-label">User Name</label>
+      </div>
+    
+     <div className="outline-form-input">
+       <input onChange={(e) => setFormData({ ...formData, email: e.target.value })} className=" input-form" type="text" placeholder="" />
+       <label htmlFor="Email" className="input-form-label">Email</label>
+     </div>
+     
+      <div className="outline-form-input">
+         <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className=" input-form" type="password" placeholder="" />
+         <label htmlFor="password" className="input-form-label">Password</label>
+      </div>
+        <select onChange={(e) => setFormData({ ...formData, role: e.target.value })} className="select rounded-sm px-6 py-1">
+          <option hidden>Role</option>
+          <option>admin</option>
+          <option>user</option>
+        </select>
       <ErrorModel display={isError.status} message={isError.message}/>
       <button onClick={(e) => {
         e.preventDefault()

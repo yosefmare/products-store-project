@@ -5,11 +5,13 @@ import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
 import MessagePopup from '../../ui-models/MessagePopup';
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import './style.scss'
 
 
 const AddProduct = () => {
     const [adminToken, setAdminToken] = useState('');
     const [modalDisplay, setModalDisplay] = useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     const productsState = useAppSelector((state) => state.productsSlice)
@@ -71,20 +73,41 @@ const AddProduct = () => {
                     message={productsState.success}
                     visibility={modalDisplay}
                 />
-
             }
 
             <Spinner visibility={productsState.loading} />
-            <form encType='multipart/form-data' onSubmit={(e) => {
+            <form className='form' encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmitForm(e)
             }}>
-                <input name='name' className='border-2 border-green-600' type="text" />
-                <input name='price' className='border-2 border-green-600' type="number" />
-                <input name='quantity' className='border-2 border-green-600' type="number" />
-                <input name='file' className='border-2 border-green-600' type="file" />
+                <h2 className="text-2xl font-bold text-center">Add Product</h2>
+                <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
+                    <input name='name' placeholder='' className='input-form'
+                        type="text" />
+                    <label htmlFor="price" className='input-form-label'>Product Name</label>
+                </div>
 
-                <div className='flex flex-col gap-3'>
+                <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
+                    <input name='price' placeholder='' className='input-form' type="number" />
+                    <label htmlFor="price" className='input-form-label'>Enter Price</label>
+                </div>
+
+                <div className='flex flex-col items-center justify-center'>
+                    <label htmlFor="file-input" className="btn  label-input-file py-2 px-4">
+                        <span>Choose Image</span>
+                        <input id="file-input" name="file" type="file" onChange={(e) => {
+                            if (e.target.files) {
+                                setSelectedImage(URL.createObjectURL(e.target.files[0]))
+                            }
+                        }} />
+                    </label>
+
+                    <div className={`${!selectedImage ? 'hidden' : 'block max-w-32 max-h-32 mt-5'}`}>
+                        <img className='block' src={selectedImage} alt="Preview Image" />
+                    </div>
+                </div>
+
+                <div className='flex items-center justify-center gap-3 mt-10'>
                     <label>
                         <input
                             type="checkbox"
@@ -114,8 +137,9 @@ const AddProduct = () => {
                     </label>
                 </div>
 
-
-                <button type='submit'>Add Product</button>
+                <div className=' flex items-center justify-center'>
+                    <button className='btn' type='submit'>Add Product</button>
+                </div>
             </form>
         </>
     );

@@ -1,8 +1,32 @@
 @tailwind base;
 @tailwind components;
+.btn{
+    @apply px-3 py-2 bg-sky-600 rounded-md text-white
+}
+
+@layer components{
+    .form{
+        @apply max-w-sm mx-auto rounded-lg shadow-xl overflow-hidden p-6 space-y-10
+    }
+    .outline-form-input {
+        @apply outline outline-transparent relative border-b-2 border-b-gray-800 focus-within:border-b-blue-500
+    }
+    .input-form{
+        @apply block p-4 w-full text-lg appearance-none focus:outline-none bg-transparent 
+    }
+    .input-form-label{
+       @apply absolute top-0 text-lg p-4 duration-300     }
+}
+
+.outline input:focus-within ~ label,
+.outline input:not(:placeholder-shown) ~ label {
+  @apply transform scale-75 -translate-y-4 z-0 ml-3 px-1 py-0;
+}
+
+
 @tailwind utilities;
 
-// transition switch between light and dark mode
+ /* transition switch between light and dark mode */
 .transition-dark {
     transition: background-color 0.5s, color 0.5s;
 }
