@@ -5,7 +5,6 @@ interface Products {
     _id: string,
     name: string,
     price: number
-    quantity: number
     productImg: string,
     category: string[]
 }
@@ -14,7 +13,7 @@ interface ProdutsState {
     products: Products[];
     showResponseMessage: boolean;
     loading: boolean;
-    error: string | undefined | null; 
+    error: string | undefined | null;
     success: string;
 }
 
@@ -34,9 +33,6 @@ export const productsSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllProduts.fulfilled, (state, action) => {
-            state.products = action.payload
-        })
 
         builder
             .addCase(addProduct.pending, (state) => {
@@ -52,6 +48,19 @@ export const productsSlice = createSlice({
                 state.loading = false
                 state.error = action.error.message
                 state.showResponseMessage = true
+            })
+
+        builder
+            .addCase(getAllProduts.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getAllProduts.fulfilled, (state, action) => {
+                state.loading = false
+                state.products = action.payload
+            })
+            .addCase(getAllProduts.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
             })
     }
 })
