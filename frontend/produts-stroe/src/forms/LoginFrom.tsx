@@ -13,13 +13,13 @@ const LoginAndRegisterForm = (): JSX.Element => {
 
     return (
         <form className=" flex flex-col gap-6">
-            <h1 className=" text-center font-medium text-xl">Login</h1>
-           
+            <h1 className="text-2xl font-bold text-center">Login</h1>
+
             <div className="outline-form-input">
                 <input onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="input-form" type="text" placeholder="" />
                 <label htmlFor="Email" className="input-form-label">Email</label>
             </div>
-            
+
             <div className="outline-form-input">
                 <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="input-form" type="password" placeholder="" />
                 <label htmlFor="Password" className="input-form-label">Password</label>
