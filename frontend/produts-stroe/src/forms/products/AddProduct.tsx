@@ -40,11 +40,9 @@ const AddProduct = () => {
     const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
         const formData = new FormData(e.currentTarget);
 
-        /*  loop over selected categories 
-        to create a new category array 
+        /*loop over selected categories  
         and add it to the the form data */
-
-        selectedCategories.map((category) => {
+        selectedCategories.forEach((category) => {
             formData.append('category', category)
         })
 
@@ -112,7 +110,7 @@ const AddProduct = () => {
                         <input
                             type="checkbox"
                             value='clothing'
-                            onChange={(e) => handleCheckboxChange(e.target.value)}
+                            onChange={() => handleCheckboxChange('clothing')}
                             checked={selectedCategories.includes('clothing')}
                         />
                         Clothing
@@ -121,10 +119,10 @@ const AddProduct = () => {
                         <input
                             type="checkbox"
                             value='phones'
-                            onChange={() => handleCheckboxChange('phones')}
-                            checked={selectedCategories.includes('phones')}
+                            onChange={() => handleCheckboxChange('machines')}
+                            checked={selectedCategories.includes('machines')}
                         />
-                        Phones
+                        Machines
                     </label>
                     <label>
                         <input
