@@ -4,6 +4,7 @@ import Login from "../components/login-and-register/Login";
 import Register from "../components/login-and-register/Register";
 import NavBar from "../components/navbar/NavBar";
 import AddProduct from "../forms/products/AddProduct";
+import Products from "../components/products/Products";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
         element:
             <div>
                 <NavBar />
+                <Products/>
             </div>
     },
     {
