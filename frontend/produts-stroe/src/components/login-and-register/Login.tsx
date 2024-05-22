@@ -1,4 +1,4 @@
-import LoginForm from '../../forms/LoginFrom'
+import {LoginForm} from '../../forms/LoginFrom'
 
 const Login = (): JSX.Element => {
   return (
