@@ -27,14 +27,14 @@ export const register = async (req: Request, res: Response) => {
         if (password && email && role && userName) {
             const emailExist = await UserModel.findOne({ email })
             if (emailExist) {
-                res.status(404).json({ status: 'email already Exist' })
+                res.status(404).json({ message: 'email already Exist' })
             } else {
                 const user = await UserModel.create({ userName, email, password, role })
                 const token = signToken(user._id, user.role)
-                res.status(201).json({ user, token, status: 'user register success' })
+                res.status(201).json({ user, token, message: 'user register success' })
             }
         } else {
-            res.status(404).json({ status: 'please fill the fields to continue' })
+            res.status(404).json({ message: 'please fill the fields to continue' })
         }
 
     } catch (error) {
