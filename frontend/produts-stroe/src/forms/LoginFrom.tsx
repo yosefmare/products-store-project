@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import ErrorModel from "../ui-models/ErrorModel";
-import { useAppDispatch, useAppSelector} from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { auth } from "../features/api/authAsyncThunk.api";
 
 
 export const submitAuthForms = (endPoint: string, data: FormEvent<HTMLFormElement>, dispatchFunction: Function) => {
     const formData = new FormData(data.currentTarget);
-    dispatchFunction(auth({endPoint,formData}))
-    
+    dispatchFunction(auth({ endPoint, formData }))
+
 }
 
 export const LoginForm = (): JSX.Element => {
@@ -17,7 +17,11 @@ export const LoginForm = (): JSX.Element => {
     const authSlice = useAppSelector((state) => state.authSlice)
     const navigates = useNavigate()
 
-
+    useEffect(() => {
+        if (authSlice.success) {
+            navigates('/products')
+        }
+    }, [authSlice.success])
 
     return (
         <form onSubmit={(e) => {
@@ -35,7 +39,7 @@ export const LoginForm = (): JSX.Element => {
                 <input name="password" className="input-form" type="password" placeholder="" />
                 <label htmlFor="Password" className="input-form-label">Password</label>
             </div>
-            <ErrorModel display={authSlice.error? true: false } message={authSlice.error? authSlice.error: ''} />
+            <ErrorModel display={authSlice.error ? true : false} message={authSlice.error ? authSlice.error : ''} />
             <button type="submit" className=" p-2 bg-sky-600 text-white cursor-pointer active:bg-sky-700">Login</button>
             <div className=" text-center">
                 <Link to={'/register'} className=" text-sky-600 underline font-medium">Register</Link>

@@ -2,13 +2,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import ErrorModel from "../ui-models/ErrorModel";
 import { submitAuthForms } from "./LoginFrom";
+import { useEffect } from "react";
 
 
 const RegistrationFrom = () => {
-  // const navigates = useNavigate()
+  const navigates = useNavigate()
   const authSlice = useAppSelector((state) => state.authSlice)
-const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    if (authSlice.success) {
+      navigates('/products')
+    }
+  }, [authSlice.success])
 
   return (
     <form onSubmit={(e) => {
@@ -37,7 +43,7 @@ const dispatch = useAppDispatch()
         <option>admin</option>
         <option>user</option>
       </select>
-      <ErrorModel display={authSlice.error? true : false} message={authSlice.error? authSlice.error : ''} />
+      <ErrorModel display={authSlice.error ? true : false} message={authSlice.error ? authSlice.error : ''} />
       <button type="submit" className=" p-2 bg-sky-600 text-white cursor-pointer active:bg-sky-700">Register</button>
       <div className=" text-center">
         <Link to={'/login'} className=" text-sky-600 underline font-medium">Login</Link>
