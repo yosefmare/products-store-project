@@ -7,19 +7,10 @@ import { useAppSelector } from '../../app/hooks';
 const defaultProfileImage: string = '/default-profile-image/default-profile-image.webp'
 
 const navLinks = [
-    {
-        content: 'products',
-        path: '/products'
-    },
-    {
-        content: 'customers',
-        path: '/customers'
-    },
-    {
-        content: 'purchases',
-        path: '/purchases'
-    }
-]
+    { content: 'products', path: '/products' },
+    { content: 'customers', path: '/customers' },
+    { content: 'purchases', path: '/purchases' }
+];
 
 const NavBar = (): JSX.Element => {
 
