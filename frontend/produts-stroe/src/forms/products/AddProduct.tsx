@@ -1,5 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { getUserDataFromLocalStorage } from '../../handelers/handelers';
+import { useState, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
@@ -9,21 +8,13 @@ import './style.scss'
 
 
 const AddProduct = () => {
-    const [adminToken, setAdminToken] = useState('');
     const [modalDisplay, setModalDisplay] = useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     const productsState = useAppSelector((state) => state.productsSlice)
-
+const authSlice = useAppSelector((state) => state.authSlice) 
     const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        const adminInfo = getUserDataFromLocalStorage();
-        if (adminInfo) {
-            setAdminToken(adminInfo.token.token);
-        }
-    }, []);
 
 
     const handleCheckboxChange = (category: string): void => {
@@ -46,7 +37,7 @@ const AddProduct = () => {
             formData.append('category', category)
         })
 
-        dispatch(addProduct({ productData: formData, headers: { 'Authorization': `Bearer ${adminToken}` } }))
+        dispatch(addProduct({ productData: formData, headers: { 'Authorization': `Bearer ${authSlice.auth?.token}` } }))
         setModalDisplay(true)
         setTimeout(() => {
             setModalDisplay(false)
