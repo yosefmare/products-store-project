@@ -1,14 +1,8 @@
-import { useState, useEffect } from 'react';
-import { getUserDataFromLocalStorage } from '../../handelers/handelers';
+import { useState } from 'react';
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { darkAndLightMode } from '../../contaxts/globalContexts';
 import { Link } from 'react-router-dom';
-
-
-interface UserData {
-    userName?: string;
-    profileImg?: string;
-}
+import { useAppSelector } from '../../app/hooks';
 
 const defaultProfileImage: string = '/default-profile-image/default-profile-image.webp'
 
@@ -30,12 +24,7 @@ const navLinks = [
 const NavBar = (): JSX.Element => {
 
     const [darkMode, setUDarkMode] = useState(false);
-    const [userData, setUserData] = useState<UserData>({});
-
-    useEffect(() => {
-        const data = getUserDataFromLocalStorage()
-        setUserData(data)
-    }, []);
+    const authSlice = useAppSelector((state) => state.authSlice)
 
     const darkAdLightModeSwitcher = darkMode ? 'transition-dark dark:bg-slate-900 text-white' : 'transition-light';
     return (
@@ -58,8 +47,8 @@ const NavBar = (): JSX.Element => {
                 {/* user info */}
                 <div>
                     <div className='flex gap-2 justify-center items-center mr-4'>
-                        <h3 className=' font-bold'>{userData.userName}</h3>
-                        <img className='w-10 h-10 rounded-full cursor-pointer' src={!userData.profileImg ? defaultProfileImage : userData.profileImg} alt="profileImg" />
+                        <h3 className=' font-bold'>{authSlice.auth?.userName}</h3>
+                        <img className='w-10 h-10 rounded-full cursor-pointer' src={!authSlice.auth?.profileImg ? defaultProfileImage : authSlice.auth?.profileImg} alt="profileImg" />
                     </div>
                 </div>
             </div>
