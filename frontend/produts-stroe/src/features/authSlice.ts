@@ -12,14 +12,14 @@ interface Auth {
     }
 
 interface AuthState {
-    auth: Auth[];
+    auth: Auth | null;
     loading: boolean;
     error: string | undefined | null;
     success: string;
 }
 
 const initialState: AuthState = {
-    auth: [],
+    auth: null,
     loading: false,
     error: null,
     success: ''
