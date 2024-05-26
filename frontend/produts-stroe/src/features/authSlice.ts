@@ -43,6 +43,7 @@ export const authSlice = createSlice({
                 
             })
             .addCase(auth.rejected, (state, action) => {
+                state.success = ''
                 state.error = action.error.message
             })
     }
