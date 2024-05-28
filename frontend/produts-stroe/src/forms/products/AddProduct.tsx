@@ -4,7 +4,6 @@ import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
 import MessagePopup from '../../ui-models/MessagePopup';
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import './style.scss'
 
 
 const AddProduct = () => {
@@ -82,9 +81,9 @@ const authSlice = useAppSelector((state) => state.authSlice)
                 </div>
 
                 <div className='flex flex-col items-center justify-center'>
-                    <label htmlFor="file-input" className="btn  label-input-file py-2 px-4">
+                    <label htmlFor="file-input" className="btn label-input-file py-2 px-4">
                         <span>Choose Image</span>
-                        <input id="file-input" name="file" type="file" onChange={(e) => {
+                        <input id="file-input" className='hidden' name="file" type="file" onChange={(e) => {
                             if (e.target.files) {
                                 setSelectedImage(URL.createObjectURL(e.target.files[0]))
                             }
