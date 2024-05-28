@@ -45,12 +45,12 @@ const setImageProfile = async (req: Request, res: Response, model: Model<BaseDoc
                 { new: true }
             );
 
-            res.json({ status: 'Profile image uploaded successfully', user });
+            res.json({ message: 'Profile image uploaded successfully', user });
         } else {
-            res.status(401).json({ status: 'Unauthorized' });
+            res.status(401).json({ message: 'Unauthorized' });
         }
     } catch (error) {
-        res.json({ status: 'Profile image upload failed', error });
+        res.json({ message: 'Profile image upload failed', error });
     }
 }
 
