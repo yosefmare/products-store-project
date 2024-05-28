@@ -5,6 +5,7 @@ import Register from "../components/login-and-register/Register";
 import NavBar from "../components/navbar/NavBar";
 import AddProduct from "../forms/products/AddProduct";
 import Products from "../components/products/Products";
+import ProfileImageUpdate from "../forms/user.profile/ProfileImageUpdate";
 
 const router = createBrowserRouter([
     {
@@ -26,11 +27,19 @@ const router = createBrowserRouter([
             </Board>
     },
     {
+        path: '/user/profile/updateImage',
+        element:
+            <div>
+                <NavBar />
+                <ProfileImageUpdate />
+            </div>
+    },
+    {
         path: '/products',
         element:
             <div>
                 <NavBar />
-                <Products/>
+                <Products />
             </div>
     },
     {
@@ -38,7 +47,7 @@ const router = createBrowserRouter([
         element:
             <div>
                 <NavBar />
-                <AddProduct/>
+                <AddProduct />
             </div>
     },
     {
