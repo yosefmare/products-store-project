@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth } from "./api/authAsyncThunk.api";
+import { auth, setProfileImage } from "./api/authAsyncThunk.api";
 
-interface Auth {
-        _id: string,
-        userName: string,
-        email: string,
-        password: string,
-        role: string,
-        profileImg?: string,
-        token: string
-    }
+export interface Auth {
+    _id: string,
+    userName: string,
+    email: string,
+    password: string,
+    role: string,
+    profileImg: string,
+    token: string
+}
 
 interface AuthState {
     auth: Auth | null;
@@ -32,17 +32,41 @@ export const authSlice = createSlice({
     extraReducers: (billder) => {
         billder.addCase(auth.pending, (state) => {
             state.loading = true;
+            state.error = null;
+            state.success = '';
         })
             .addCase(auth.fulfilled, (state, action) => {
                 const token = action.payload.token;
                 const userinfo = action.payload.user
-                const userObj = {...userinfo, token}
+                const userObj = { ...userinfo, token }
                 state.auth = userObj
                 state.success = action.payload.message
                 state.error = null
-                
+
             })
             .addCase(auth.rejected, (state, action) => {
+                state.auth = null
+                state.success = ''
+                state.error = action.error.message
+            })
+
+        billder
+            .addCase(setProfileImage.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.success = '';
+            })
+            .addCase(setProfileImage.fulfilled, (state, action) => {
+                state.loading = false
+                const token = state.auth?.token
+                const resUserObj = action.payload.user
+                const newUserObj = { ...resUserObj, token }
+                state.auth = newUserObj
+                state.success = action.payload.message
+            })
+            .addCase(setProfileImage.rejected, (state, action) => {
+                state.loading = false
+                state.auth = null
                 state.success = ''
                 state.error = action.error.message
             })
