@@ -1,28 +1,28 @@
+import { Link } from "react-router-dom"
+
+
 
 type ProductCardProps = {
+    id: string
     name: string,
-    price: number
+    price: number,
     productImg: string,
 }
 
-const ProductCard = ({ name, price, productImg }: ProductCardProps) => {
+const ProductCard = ({ name, price, productImg, id }: ProductCardProps) => {
+
+
     return (
-        <div className="mx-10 grid grid-rows-3 gap-4 max-h-96 max-w-96 bg-emerald-400">
-            <div>
-                <img src={productImg} alt="product-img" />
+        <div className="max-w-sm rounded overflow-hidden shadow-lg flex mx-10 gap-3">
+            <div className=" w-36 h-36">
+                <img className="w-full" src={productImg} alt="productImg" />
             </div>
-            <div>
-                <h1>{name}</h1>
-                <h2>{price}</h2>
-            </div>
-            <div>
-                <button>
-                    +
-                </button>
-                <span>Counter</span>
-                <button>
-                    -
-                </button>
+            <div className="px-6 py-4 flex flex-col">
+                <div className="font-bold text-xl mb-2">{name}</div>
+                <p className="text-gray-700 text-base">
+                    ${price}
+                </p>
+                <Link to={`/product/${id}`} className="btn py-1">show product</Link>
             </div>
         </div>
     )

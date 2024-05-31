@@ -20,9 +20,9 @@ const Products = () => {
       <div className="mx-12 flex justify-end mt-10">
         <Link to={'/products/AddProduct'} className="bg-sky-600 text-white font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-10 active:bg-sky-700">+</Link>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-5">
         {
-          products.products.map((product) => <ProductCard key={product._id} productImg={product.productImg} name={product.name} price={product.price} />)
+          products.products.map((product) => <ProductCard key={product._id}  id={product._id} productImg={product.productImg} name={product.name} price={product.price} />)
         }
       </div>
     </div>
