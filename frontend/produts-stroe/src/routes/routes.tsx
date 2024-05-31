@@ -6,6 +6,7 @@ import NavBar from "../components/navbar/NavBar";
 import AddProduct from "../forms/products/AddProduct";
 import Products from "../components/products/Products";
 import ProfileImageUpdate from "../forms/user.profile/ProfileImageUpdate";
+import ProductDetail from "../components/products/ProductDetail";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
             <div>
                 <NavBar />
                 <Products />
+            </div>
+    },
+    {
+        path: '/product/:id',
+        element:
+            <div>
+                <NavBar />
+                <ProductDetail />
             </div>
     },
     {

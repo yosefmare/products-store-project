@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { addProduct, getAllProduts } from "./api/productsAsyncThunk.api"
 
-interface Products {
+export interface Products {
     _id: string,
     name: string,
     price: number
