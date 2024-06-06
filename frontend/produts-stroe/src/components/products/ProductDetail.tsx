@@ -27,15 +27,41 @@ if (data) {
     }
 
     return (
-        <div className="grid grid-cols-2">
-            <div>
-                <img src={`../../../public/${product.productImg}`} alt={product.name} />
+        <div>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row -mx-4">
+            <div className="md:flex-1 px-4">
+                <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                <img className="w-full h-full object-cover" src={`../../../public/${product.productImg}`} alt="" />
+                </div>
+                <div className="flex-mx-2 mb-4">
+                    <div className="w-full px-2">
+                        <button className="w-full btn">Add to Cart</button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h1>{product.name}</h1>
-                <p>{product.price}</p>
+            <div className="md:flex-1 px-4">
+                <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
+                <div className="flex mb-4">
+                    <div className="mr-4">
+                        <span className="font-bold">Price:</span>
+                        <span> ${product.price}</span>
+                    </div>  
+                </div>  
+                <div>
+                    <span className="font-bold">Product Description:</span>
+                    <p className="text-sm mt-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                        sed ante justo. Integer euismod libero id mauris malesuada tincidunt. Vivamus commodo nulla ut
+                        lorem rhoncus aliquet. Duis dapibus augue vel ipsum pretium, et venenatis sem blandit. Quisque
+                        ut erat vitae nisi ultrices placerat non eget velit. Integer ornare mi sed ipsum lacinia, non
+                        sagittis mauris blandit. Morbi fermentum libero vel nisl suscipit, nec tincidunt mi consectetur.
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
+</div>
     );
 };
 
