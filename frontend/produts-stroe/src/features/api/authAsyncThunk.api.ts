@@ -6,7 +6,7 @@ import { Auth } from "../authSlice";
 type Entity = {
     endPoint: string,
     formData: FormData,
-    headers: Headers,
+    headers?: Headers,
 }
 
 export const auth = createAsyncThunk('auth/loginAndRegister', async (entity: Entity) => {
