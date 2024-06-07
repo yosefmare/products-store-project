@@ -24,7 +24,7 @@ const ProductCard = ({ name, price, productImg, id }: ProductCardProps) => {
                 ${price}
             </p>
         </div>
-        <Link to={`/product/${id}`} className="mt-4 sm:mt-0 self-start sm:self-auto bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Show Product</Link>
+        <Link to={`/product/${id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
     </div>
 </div>  
     )
