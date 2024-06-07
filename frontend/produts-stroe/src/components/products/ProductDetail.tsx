@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAllEntity } from "../../utils/utils";
 import { Products } from "../../features/ProductsSlice";
+import Spinner from "../../ui-models/Spinner";
 
 const ProductDetail = (): JSX.Element => {
     const [product, setProduct] = useState<Products | null>(null);
@@ -23,7 +24,8 @@ if (data) {
     }, [id]);
 
     if (!product) {
-        return <div>Loading...</div>;
+        return <Spinner visibility={true} />
+
     }
 
     return (
