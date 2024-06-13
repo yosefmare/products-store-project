@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
 import ProductCard from "./ProductCard";
+import { loadUserDataFromLocalStorage } from "../../features/api/authAsyncThunk.api";
 
 const Products = () => {
   const products = useAppSelector((state) => state.productsSlice)
@@ -13,7 +14,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(getAllProduts());
   }, [dispatch]);
-
+  const userRule = loadUserDataFromLocalStorage()
   const filteredProducts = products.products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -29,7 +30,16 @@ const Products = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
         />
-        <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
+        {
+          userRule?.role == 'admin'
+            ?
+            <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
+            : <select className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800">
+              <option value="books">Books</option>
+              <option value="machines">Machines</option>
+              <option value="clothing">Clothing</option>
+            </select>
+        }
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 sm:px-12 mt-5">
         {
