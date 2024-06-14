@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
@@ -7,35 +7,23 @@ import ProductCard from "./ProductCard";
 import { loadUserDataFromLocalStorage } from "../../features/api/authAsyncThunk.api";
 
 const Products = () => {
-  const products = useAppSelector((state) => state.productsSlice)
-  const dispatch = useAppDispatch()
-  const [searchTerm, setSearchTerm] = useState('');
-  const searchInputElementRef = useRef<HTMLInputElement>(null)
-  const searchSelectElementRef = useRef<HTMLSelectElement>(null)
+  const products = useAppSelector((state) => state.productsSlice);
+  const dispatch = useAppDispatch();
+  const [searchTerm, setSearchTerm] = useState({ searchByInputFilled: '', searchBySelectFilled: '' });
+  const searchInputElementRef = useRef<HTMLInputElement>(null);
+  const searchSelectElementRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     dispatch(getAllProduts());
   }, [dispatch]);
 
-  useEffect(() => {
-    const handleFocus = () => {
-      setSearchTerm('');
-    }
+  const userRole = loadUserDataFromLocalStorage();
 
-    const inputElementSearch = searchInputElementRef.current
-    const seletElementSearch = searchSelectElementRef.current
-    inputElementSearch?.addEventListener('focus', handleFocus)
-    seletElementSearch?.addEventListener('focus', handleFocus)
-  }, [])
-
-  const userRole = loadUserDataFromLocalStorage()
-
-  const filteredProducts = products.products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ||
-    product.category.includes(searchTerm)
-
-  );
+  const filteredProducts = products.products.filter(product => {
+    const inputMatch = product.name.toLowerCase().includes(searchTerm.searchByInputFilled.toLowerCase());
+    const selectMatch = searchTerm.searchBySelectFilled === '' || product.category.some(cat => cat.toLowerCase() === searchTerm.searchBySelectFilled.toLowerCase());
+    return inputMatch && selectMatch;
+  });
 
   return (
     <div>
@@ -45,39 +33,41 @@ const Products = () => {
           ref={searchInputElementRef}
           type="text"
           placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm.searchByInputFilled}
+          onChange={(e) => setSearchTerm({ ...searchTerm, searchByInputFilled: e.target.value, searchBySelectFilled: '' })}
           className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
         />
         {
-          userRole?.role == 'admin'
-            ?
+          userRole?.role === 'admin' ? (
             <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
-            :
-            <select ref={searchSelectElementRef} onChange={(e) => setSearchTerm(e.target.value)} className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800">
-              <option hidden selected value="books">Slelect Catigory</option>
-              <option value="">All</option>
+          ) : (
+            <select
+              ref={searchSelectElementRef}
+              onChange={(e) => setSearchTerm({ ...searchTerm, searchBySelectFilled: e.target.value, searchByInputFilled: '' })}
+              className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
+              value={searchTerm.searchBySelectFilled}
+            >
+              <option value="">Select Category</option>
               <option value="books">Books</option>
               <option value="machines">Machines</option>
               <option value="clothing">Clothing</option>
             </select>
+          )
         }
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 sm:px-12 mt-5">
-        {
-          filteredProducts.map((product) => (
-            <ProductCard
-              key={product._id}
-              id={product._id}
-              productImg={product.productImg}
-              name={product.name}
-              price={product.price}
-            />
-          ))
-        }
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product._id}
+            id={product._id}
+            productImg={product.productImg}
+            name={product.name}
+            price={product.price}
+          />
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
