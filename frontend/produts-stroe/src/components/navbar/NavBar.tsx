@@ -45,11 +45,16 @@ const NavBar = (): JSX.Element => {
                 </div>
 
                 {/* main nav content */}
+                {userData?.role == 'admin'
+                ?
                 <ul className='flex gap-10'>
                     {
                         navLinks.map((content, index) => <li key={index} className='btn'><Link to={content.path}>{content.content}</Link></li>)
                     }
                 </ul>
+                :
+                <></>
+                }
 
                 {/* user info */}
                 <div>

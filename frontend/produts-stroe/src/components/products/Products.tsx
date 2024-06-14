@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
