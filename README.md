@@ -46,7 +46,7 @@ Full Stack E-commerce is a comprehensive e-commerce platform designed to provide
     ```
 2. Navigate to the backend directory
     ```bash
-    cd /Produts Store/backend
+    cd Produts\ Store/backend/
     ```
 3. Install dependencies
     ```bash
@@ -66,7 +66,7 @@ Full Stack E-commerce is a comprehensive e-commerce platform designed to provide
 ### Frontend Setup
 1. Navigate to the frontend directory
     ```bash
-    cd /Produts Store/frontend
+    cd Produts\ Store/frontend/produts-stroe/
     ```
 2. Install dependencies
     ```bash
