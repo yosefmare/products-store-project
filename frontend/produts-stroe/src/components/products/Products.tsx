@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
@@ -10,13 +10,31 @@ const Products = () => {
   const products = useAppSelector((state) => state.productsSlice)
   const dispatch = useAppDispatch()
   const [searchTerm, setSearchTerm] = useState('');
+  const searchInputElementRef = useRef<HTMLInputElement>(null)
+  const searchSelectElementRef = useRef<HTMLSelectElement>(null)
 
   useEffect(() => {
     dispatch(getAllProduts());
   }, [dispatch]);
-  const userRule = loadUserDataFromLocalStorage()
+
+  useEffect(() => {
+    const handleFocus = () => {
+      setSearchTerm('');
+    }
+
+    const inputElementSearch = searchInputElementRef.current
+    const seletElementSearch = searchSelectElementRef.current
+    inputElementSearch?.addEventListener('focus', handleFocus)
+    seletElementSearch?.addEventListener('focus', handleFocus)
+  }, [])
+
+  const userRole = loadUserDataFromLocalStorage()
+
   const filteredProducts = products.products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ||
+    product.category.includes(searchTerm)
+
   );
 
   return (
@@ -24,6 +42,7 @@ const Products = () => {
       <Spinner visibility={products.loading} />
       <div className="flex justify-between items-center mx-4 sm:mx-12 mt-10">
         <input
+          ref={searchInputElementRef}
           type="text"
           placeholder="Search products..."
           value={searchTerm}
@@ -31,10 +50,13 @@ const Products = () => {
           className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
         />
         {
-          userRule?.role == 'admin'
+          userRole?.role == 'admin'
             ?
             <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
-            : <select className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800">
+            :
+            <select ref={searchSelectElementRef} onChange={(e) => setSearchTerm(e.target.value)} className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800">
+              <option hidden selected value="books">Slelect Catigory</option>
+              <option value="">All</option>
               <option value="books">Books</option>
               <option value="machines">Machines</option>
               <option value="clothing">Clothing</option>
