@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks/hooks";
 import ErrorModel from "../ui-models/ErrorModel";
 import { submitAuthForms } from "./LoginFrom";
 import { useEffect } from "react";

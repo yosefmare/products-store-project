@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import { FormEvent, useEffect, useState } from 'react';
 import { loadUserDataFromLocalStorage, setProfileImage } from "../../features/api/authAsyncThunk.api";
 import { Auth } from "../../features/authSlice";

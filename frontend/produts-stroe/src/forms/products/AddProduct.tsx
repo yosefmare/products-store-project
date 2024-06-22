@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
 import MessagePopup from '../../ui-models/MessagePopup';

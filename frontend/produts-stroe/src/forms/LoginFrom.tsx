@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import ErrorModel from "../ui-models/ErrorModel";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks/hooks";
 import { auth } from "../features/api/authAsyncThunk.api";
 
 

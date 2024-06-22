@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
 import ProductCard from "./ProductCard";
