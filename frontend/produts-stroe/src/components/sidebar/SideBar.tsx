@@ -24,6 +24,9 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
         quantity: addedToCardItems.filter(item => item === product._id).length,
     }));
 
+    const totalPrice = quantities.reduce((total, product) => total + product.price * product.quantity, 0);
+
+
     return (
         <div className={`sidebar-content sidebar ${isOpen ? 'open' : ''}`}>
             <div>
@@ -34,11 +37,14 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                         productImg={product.productImg}
                         name={product.name}
                         price={product.price}
-                        quatity={product.quantity} // Pass quantity prop
+                        quatity={product.quantity}
                     />
                 ))}
             </div>
-        </div>
+           <div className='footer'>
+             <button className="btn w-full h-full">Total: ${totalPrice.toFixed(2)}</button>
+           </div>
+            </div>
     );
 };
 
