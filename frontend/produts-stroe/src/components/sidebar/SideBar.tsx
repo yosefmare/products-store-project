@@ -28,8 +28,9 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
 
 
     return (
-        <div className={`sidebar-content sidebar ${isOpen ? 'open' : ''}`}>
-            <div>
+        <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+            <div className='sidebar-content '>
+                <div>
                 {quantities.map(product => (
                     <ProductCard
                         key={product._id}
@@ -40,11 +41,12 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                         quatity={product.quantity}
                     />
                 ))}
+                </div>
             </div>
-           <div className='footer'>
-             <button className="btn w-full h-full">Total: ${totalPrice.toFixed(2)}</button>
-           </div>
+            <div className='footer'>
+                <button className="btn w-full h-full">Total: ${totalPrice.toFixed(2)}</button>
             </div>
+        </div>
     );
 };
 
