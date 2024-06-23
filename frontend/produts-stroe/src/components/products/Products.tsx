@@ -59,6 +59,7 @@ const Products = () => {
             productImg={product.productImg}
             name={product.name}
             price={product.price}
+            quatity={0}
           />
         ))}
       </div>

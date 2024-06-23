@@ -19,16 +19,22 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
 
     const userItems = products.filter(product => addedToCardItems.includes(product._id));
 
+    const quantities = userItems.map(product => ({
+        ...product,
+        quantity: addedToCardItems.filter(item => item === product._id).length,
+    }));
+
     return (
         <div className={`sidebar-content sidebar ${isOpen ? 'open' : ''}`}>
             <div>
-                {userItems.map(product => (
+                {quantities.map(product => (
                     <ProductCard
                         key={product._id}
                         id={product._id}
                         productImg={product.productImg}
                         name={product.name}
                         price={product.price}
+                        quatity={product.quantity} // Pass quantity prop
                     />
                 ))}
             </div>
