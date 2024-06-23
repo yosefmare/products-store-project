@@ -9,6 +9,7 @@ interface SideBarProps {
 }
 
 const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
+    const addedToCardItems = useAppSelector((state) => state.shoppingCardCounter.itemCount);
     const products = useAppSelector((state) => state.productsSlice.products);
     const dispatch = useAppDispatch();
 
@@ -16,10 +17,12 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
         dispatch(getAllProduts());
     }, [dispatch]);
 
+    const userItems = products.filter(product => addedToCardItems.includes(product._id));
+
     return (
-        <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-            <div className="flex flex-col gap-4 p-4">
-                {products.map(product =>
+        <div className={`sidebar-content sidebar ${isOpen ? 'open' : ''}`}>
+            <div>
+                {userItems.map(product => (
                     <ProductCard
                         key={product._id}
                         id={product._id}
@@ -27,7 +30,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                         name={product.name}
                         price={product.price}
                     />
-                )}
+                ))}
             </div>
         </div>
     );

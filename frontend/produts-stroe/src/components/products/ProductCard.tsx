@@ -15,7 +15,7 @@ const ProductCard = ({ name, price, productImg, id }: ProductCardProps) => {
     return (
 <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto flex flex-col sm:flex-row gap-3 bg-white p-4 sm:p-6">
     <div className="w-full sm:w-36 h-36 flex-shrink-0">
-        <img className="w-full h-full object-cover" src={productImg} alt="productImg" />
+        <img className="w-full h-full object-cover" src={`../../../public/${productImg}`} alt="productImg" />
     </div>
     <div className="flex flex-col justify-between">
         <div>
