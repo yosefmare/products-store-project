@@ -44,7 +44,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                 </div>
             </div>
             <div className='footer'>
-                <button className="btn w-full h-full">Total: ${totalPrice.toFixed(2)}</button>
+                <button className="btn w-full">Total: ${totalPrice.toFixed(2)}</button>
             </div>
         </div>
     );
