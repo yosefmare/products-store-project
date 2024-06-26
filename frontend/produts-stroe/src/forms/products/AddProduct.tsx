@@ -68,7 +68,7 @@ const authSlice = useAppSelector((state) => state.authSlice)
                 e.preventDefault();
                 handleSubmitForm(e)
             }}>
-                <h2 className="text-2xl font-bold text-center">Add Product</h2>
+                <h2 className="form-title">Add Product</h2>
                 <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
                     <input name='name' placeholder='' className='input-form'
                         type="text" />

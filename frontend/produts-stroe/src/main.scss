@@ -13,6 +13,9 @@
     .form{
         @apply max-w-sm mx-auto rounded-lg shadow-xl overflow-hidden p-6 space-y-10
     }
+    .form-title{
+        @apply text-2xl font-bold text-center
+    }
     .outline-form-input {
         @apply outline outline-transparent relative border-b-2 border-b-gray-800 focus-within:border-b-blue-500
     }

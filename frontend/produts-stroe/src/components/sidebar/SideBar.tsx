@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import { getAllProduts } from '../../features/api/productsAsyncThunk.api';
 import ProductCard from '../products/ProductCard';
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 interface SideBarProps {
     isOpen: boolean;
@@ -44,7 +45,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                 </div>
             </div>
             <div className='footer'>
-                <button className="btn w-full">Total: ${totalPrice.toFixed(2)}</button>
+                <Link to={'/customers/createCustomer'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
             </div>
         </div>
     );
