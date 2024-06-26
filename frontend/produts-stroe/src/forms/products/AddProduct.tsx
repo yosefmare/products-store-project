@@ -1,19 +1,20 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
 import MessagePopup from '../../ui-models/MessagePopup';
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { handleSubmitFormForPostRquest } from '../functions/mainFunctions';
+import { loadUserDataFromLocalStorage } from '../../features/api/authAsyncThunk.api';
 
 
 const AddProduct = () => {
     const [modalDisplay, setModalDisplay] = useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
-    const productsState = useAppSelector((state) => state.productsSlice)
-const authSlice = useAppSelector((state) => state.authSlice) 
     const dispatch = useAppDispatch()
+    const userData = loadUserDataFromLocalStorage()
+    const productsState = useAppSelector((state) => state.productsSlice)
 
 
     const handleCheckboxChange = (category: string): void => {
@@ -26,22 +27,6 @@ const authSlice = useAppSelector((state) => state.authSlice)
             setSelectedCategories((prevCategories) => [...prevCategories, category]);
         }
     };
-
-    const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
-        const formData = new FormData(e.currentTarget);
-
-        /*loop over selected categories  
-        and add it to the the form data */
-        selectedCategories.forEach((category) => {
-            formData.append('category', category)
-        })
-
-        dispatch(addProduct({ productData: formData, headers: { 'Authorization': `Bearer ${authSlice.auth?.token}` } }))
-        setModalDisplay(true)
-        setTimeout(() => {
-            setModalDisplay(false)
-        }, 1500)
-    }
 
     return (
         <>
@@ -66,7 +51,7 @@ const authSlice = useAppSelector((state) => state.authSlice)
             <Spinner visibility={productsState.loading} />
             <form className='form' encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmitForm(e)
+                handleSubmitFormForPostRquest(e, setModalDisplay, dispatch, userData?.token, addProduct, selectedCategories)
             }}>
                 <h2 className="form-title">Add Product</h2>
                 <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
