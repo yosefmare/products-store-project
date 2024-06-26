@@ -6,7 +6,7 @@ import { upload, setImageProfile } from "../../file-managment/multer";
 
 const router = Router()
 router.post('/users/uploadProfileImage', upload.single('file'), (req: Request, res: Response) => setImageProfile(req, res, UserModel))
-router.patch('/users/editProfile/:id', (req: Request, res: Response) => updateEntity(req, res, UserModel))
+router.patch('/users/editProfile/:id', upload.single('file'), (req: Request, res: Response) => updateEntity(req, res, UserModel))
 
 
 
