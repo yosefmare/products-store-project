@@ -3,7 +3,7 @@ import { createEntity, getAllEntities, getEntityById, updateEntity, deleteEntity
 import CustomersModel from "../../schemas/Customers";
 import { Request, Response } from 'express'
 import { protectionRoutesHandler } from "../../utils/auth";
-import { upload } from "file-managment/multer";
+import { upload } from "../../file-managment/multer";
 
 const router = Router()
 router

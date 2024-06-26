@@ -2,7 +2,7 @@ import { getAllEntities, getEntityById, createEntity, updateEntity, deleteEntity
 import PurchasesModel from "../../schemas/Purchases";
 import { Request, Response, Router } from 'express'
 import { protectionRoutesHandler } from "../../utils/auth";
-import { upload } from "file-managment/multer";
+import { upload } from "../../file-managment/multer";
 
 const router = Router()
 router
