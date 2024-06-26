@@ -7,6 +7,7 @@ import AddProduct from "../forms/products/AddProduct";
 import Products from "../components/products/Products";
 import ProfileImageUpdate from "../forms/user.profile/ProfileImageUpdate";
 import ProductDetail from "../components/products/ProductDetail";
+import CreateCustomer from "../forms/customers/CreateCustomer";
 
 const router = createBrowserRouter([
     {
@@ -60,10 +61,11 @@ const router = createBrowserRouter([
             </div>
     },
     {
-        path: '/customers',
+        path: '/customers/createCustomer',
         element:
             <div>
                 <NavBar />
+                <CreateCustomer/>
             </div>
     },
     {
