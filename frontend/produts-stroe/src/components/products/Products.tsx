@@ -43,7 +43,7 @@ const Products = () => {
               className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
               value={searchTerm.searchBySelectFilled}
             >
-              <option value="">Select Category</option>
+              <option value="" disabled selected hidden>Select Category</option>
               <option value="books">Books</option>
               <option value="machines">Machines</option>
               <option value="clothing">Clothing</option>
