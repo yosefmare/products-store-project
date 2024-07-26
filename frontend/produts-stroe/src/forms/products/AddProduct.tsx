@@ -55,20 +55,20 @@ const AddProduct = () => {
             }}>
                 <h2 className="form-title">Add Product</h2>
                 <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
-                    <input name='name' placeholder='' className='input-form'
+                    <input required name='name' placeholder='' className='input-form'
                         type="text" />
                     <label htmlFor="price" className='input-form-label'>Product Name</label>
                 </div>
 
                 <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>
-                    <input name='price' placeholder='' className='input-form' type="number" />
+                    <input required name='price' placeholder='' className='input-form' type="number" />
                     <label htmlFor="price" className='input-form-label'>Enter Price</label>
                 </div>
 
                 <div className='flex flex-col items-center justify-center'>
                     <label htmlFor="file-input" className="btn label-input-file py-2 px-4">
                         <span>Choose Image</span>
-                        <input id="file-input" className='hidden' name="file" type="file" onChange={(e) => {
+                        <input required id="file-input" className='hidden' name="file" type="file" onChange={(e) => {
                             if (e.target.files) {
                                 setSelectedImage(URL.createObjectURL(e.target.files[0]))
                             }
