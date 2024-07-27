@@ -13,7 +13,7 @@ router
     .get('/customers/getCustomer/:id', (req: Request, res: Response) => {
         protectionRoutesHandler(req, res, getEntityById.bind(null, req, res, CustomersModel))
     })
-    .post('/customers/addCustomer', upload.single('FILE'), (req: Request, res: Response) => createEntity(req, res, CustomersModel))
+    .post('/customers/addCustomer', upload.single('file'), (req: Request, res: Response) => createEntity(req, res, CustomersModel))
     .patch('/customers/updateCustomer/:id', upload.single('file'), (req: Request, res: Response) => {
         protectionRoutesHandler(req, res, updateEntity.bind(null, req, res, CustomersModel))
     })

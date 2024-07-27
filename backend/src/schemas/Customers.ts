@@ -5,14 +5,23 @@ const ObjectId = Schema.Types.ObjectId
 
 
 const CustomersSchema = new Schema({
-    user:{
+    user: {
         type: ObjectId,
         ref: 'customers'
     },
-    firstName: String,
-    lastName: String,
-    city: String
-}, {versionKey: false})
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    }
+}, { versionKey: false })
 
 const CustomersModel = model<CustomersDocument>('customers', CustomersSchema)
 
