@@ -1,0 +1,67 @@
+import { createSlice } from "@reduxjs/toolkit"
+import { createCustomer } from "./api/customersAsyncThunk.api"
+
+export interface Customers {
+    _id: string,
+    firstName: string,
+    lastName: string,
+    city: string,
+}
+
+interface CustomersState {
+    customers: Customers[];
+    showResponseMessage: boolean;
+    loading: boolean;
+    error: string | undefined | null;
+    success: string;
+}
+
+const initialState: CustomersState = {
+    customers: [],
+    showResponseMessage: false,
+    loading: false,
+    error: null,
+    success: ''
+}
+
+
+export const customersSlice = createSlice({
+    name: 'customers',
+    initialState,
+    reducers: {
+
+    },
+    extraReducers: (builder) => {
+
+        builder
+            .addCase(createCustomer.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(createCustomer.fulfilled, (state, action) => {
+                state.loading = false
+                state.error = null
+                state.success = action.payload.message
+                state.showResponseMessage = true
+            })
+            .addCase(createCustomer.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+                state.showResponseMessage = true
+            })
+
+        // builder
+        //     .addCase(getAllProduts.pending, (state) => {
+        //         state.loading = true
+        //     })
+        //     .addCase(getAllProduts.fulfilled, (state, action) => {
+        //         state.loading = false
+        //         state.products = action.payload
+        //     })
+        //     .addCase(getAllProduts.rejected, (state, action) => {
+        //         state.loading = false
+        //         state.error = action.error.message
+        //     })
+    }
+})
+
+export default customersSlice.reducer
