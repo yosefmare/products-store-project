@@ -3,6 +3,7 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import { BaseDocument } from '../types/UserAndRegisrationMethodeTypes';
 
+const ObjectId = Schema.Types.ObjectId
 const userSchema = new Schema({
     userName: {
         type: String,
@@ -33,7 +34,11 @@ const userSchema = new Schema({
     profileImg:{
         type: String,
         default: ''
-    }
+    },
+    customerId:{
+        type: ObjectId,
+        ref: 'customers'
+    },
 }, { versionKey: false });
 
 // Middleware to hash the password before saving
