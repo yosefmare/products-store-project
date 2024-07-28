@@ -8,7 +8,8 @@ export interface Auth {
     password: string,
     role: string,
     profileImg: string,
-    token: string
+    token: string,
+    customerId: string
 }
 
 interface AuthState {
