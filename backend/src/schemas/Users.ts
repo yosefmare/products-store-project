@@ -37,7 +37,8 @@ const userSchema = new Schema({
     },
     customerId:{
         type: ObjectId,
-        ref: 'customers'
+        ref: 'customers',
+        default: null
     },
 }, { versionKey: false });
 

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createCustomer } from "./api/customersAsyncThunk.api"
+import { loadUserDataFromLocalStorage } from "./api/authAsyncThunk.api";
 
 export interface Customers {
     _id: string,
@@ -40,6 +41,13 @@ export const customersSlice = createSlice({
             .addCase(createCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.error = null
+                let userData = loadUserDataFromLocalStorage();
+                if (userData) {
+                    const customerId = action.payload.newEntity._id;
+                    userData = { ...userData, customerId };
+                    localStorage.setItem('user', JSON.stringify(userData));
+                }
+
                 state.success = action.payload.message
                 state.showResponseMessage = true
             })

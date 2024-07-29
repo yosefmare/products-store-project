@@ -9,7 +9,7 @@ export interface Auth {
     role: string,
     profileImg: string,
     token: string,
-    customerId: string
+    customerId: null | string
 }
 
 interface AuthState {
