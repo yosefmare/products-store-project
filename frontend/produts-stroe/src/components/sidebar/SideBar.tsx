@@ -4,6 +4,7 @@ import { getAllProduts } from '../../features/api/productsAsyncThunk.api';
 import ProductCard from '../products/ProductCard';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import { loadUserDataFromLocalStorage } from '../../features/api/authAsyncThunk.api';
 
 interface SideBarProps {
     isOpen: boolean;
@@ -13,6 +14,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
     const addedToCardItems = useAppSelector((state) => state.shoppingCardCounter.itemCount);
     const products = useAppSelector((state) => state.productsSlice.products);
     const dispatch = useAppDispatch();
+    const userData = loadUserDataFromLocalStorage()
 
     useEffect(() => {
         dispatch(getAllProduts());
@@ -32,20 +34,26 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <div className='sidebar-content '>
                 <div>
-                {quantities.map(product => (
-                    <ProductCard
-                        key={product._id}
-                        id={product._id}
-                        productImg={product.productImg}
-                        name={product.name}
-                        price={product.price}
-                        quatity={product.quantity}
-                    />
-                ))}
+                    {quantities.map(product => (
+                        <ProductCard
+                            key={product._id}
+                            id={product._id}
+                            productImg={product.productImg}
+                            name={product.name}
+                            price={product.price}
+                            quatity={product.quantity}
+                        />
+                    ))}
                 </div>
             </div>
             <div className='footer'>
-                <Link to={'/customers/createCustomer'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                {
+                    userData?.customerId
+                        ?
+                        <Link to={'/purchases/createPurchase'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                        :
+                        <Link to={'/customers/createCustomer'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                }
             </div>
         </div>
     );

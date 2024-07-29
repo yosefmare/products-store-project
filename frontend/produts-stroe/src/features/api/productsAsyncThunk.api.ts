@@ -17,9 +17,9 @@ export const getAllProduts = createAsyncThunk('products/getAllProduts', async ()
     }
 })
 
-export const addProduct = createAsyncThunk('products/addProduts', async ({ productData, headers }: AddProductFunctionObject) => {
+export const addProduct = createAsyncThunk('products/addProduts', async ({ entityData, headers }: AddProductFunctionObject) => {
     try {
-        const { data, response } = await createEntity('http://localhost:8000/products/addProduct', productData, headers)
+        const { data, response } = await createEntity('http://localhost:8000/products/addProduct', entityData, headers)
         if (data) {
             console.log(data);
             return data

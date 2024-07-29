@@ -75,6 +75,14 @@ const router = createBrowserRouter([
                 <NavBar />
             </div>
     },
+    {
+        path: '/purchases/createPurchase',
+        element:
+            <div>
+                <NavBar />
+                <h1 className="font-bold text-2xl">Create Purchase Page</h1>
+            </div>
+    },
 ]);
 
 export default router
