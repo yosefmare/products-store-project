@@ -25,21 +25,21 @@ const RegistrationFrom = () => {
       <h1 className="text-2xl font-bold text-center">Register</h1>
 
       <div className="outline-form-input">
-        <input name="userName" className=" input-form" type="text" placeholder="" />
+        <input required name="userName" className=" input-form" type="text" placeholder="" />
         <label htmlFor="User Name" className="input-form-label">User Name</label>
       </div>
 
       <div className="outline-form-input">
-        <input name="email" className=" input-form" type="text" placeholder="" />
+        <input required name="email" className=" input-form" type="text" placeholder="" />
         <label htmlFor="Email" className="input-form-label">Email</label>
       </div>
 
       <div className="outline-form-input">
-        <input name="password" className=" input-form" type="password" placeholder="" />
+        <input required name="password" className=" input-form" type="password" placeholder="" />
         <label htmlFor="password" className="input-form-label">Password</label>
       </div>
-      <select name='role' className="select rounded-sm px-6 py-1">
-        <option hidden>Role</option>
+      <select required name='role' className="select rounded-sm px-6 py-1">
+        <option disabled selected hidden>Role</option>
         <option>admin</option>
         <option>user</option>
       </select>

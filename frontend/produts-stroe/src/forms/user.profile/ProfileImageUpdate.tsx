@@ -11,7 +11,8 @@ const ProfileImageUpdate = () => {
     password: '',
     role: '',
     profileImg: '',
-    token: ''
+    token: '',
+    customerId: '',
 });
   const [newProfileImage, setNewProfileImage] = useState<string>('');
   const authSlice = useAppSelector((state) => state.authSlice)
@@ -51,7 +52,7 @@ if (formData) {
         }} id="profileImage" className="hidden" type="file" name='file' />
         <img className={`${newProfileImage ? 'hidden' : 'block'} rounded-full w-56 h-56`} src={`${userData?.profileImg? `../../../public/${userData?.profileImg}`: defaultProfileImage}`} alt="profileImage" />
         <img className={`${newProfileImage ? 'block' : 'hidden'} rounded-full w-56 h-56`} src={newProfileImage} alt="profileImage" />
-        <label htmlFor="profileImage" className="btn">eqkell</label>
+        <label htmlFor="profileImage" className="btn">select image</label>
         <button type="submit" className="btn">change image</button>
       </form>
     </div>
