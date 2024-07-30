@@ -13,6 +13,7 @@ const ProductDetail = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const shoppingCardSlice = useAppSelector((state) => state.shoppingCardCounter.itemCount)
 
+const productExist = shoppingCardSlice.find((item) => item === id)
 
     useEffect(() => {
         const getProduct = async () => {
@@ -47,14 +48,14 @@ const ProductDetail = (): JSX.Element => {
                                     e.preventDefault();
                                     dispatch(addItem(id))
                                 }}
-                                    className={shoppingCardSlice.length === 0
+                                    className={!productExist
                                         ? 'w-full btn'
                                         : 'hidden'
                                     }
                                 >Add to Cart</button>
 
                                 {/* addetion an subtrection buttons */}
-                                <div className={shoppingCardSlice.length !== 0
+                                <div className={productExist
                                     ? 'w-full flex items-center justify-between '
                                     : 'hidden'
                                 }>
