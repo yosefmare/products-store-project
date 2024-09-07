@@ -55,11 +55,13 @@ Full Stack E-commerce is a comprehensive e-commerce platform designed to provide
     ```bash
     npm install
     ```
-4. Create a `.env` file in the backend directory and add the following environment variables:
+4. Create a `config.env` file in the backend directory and add the following environment variables:
     ```
     PORT=8000
-    MONGODB_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
+    DB_URL = your DB url
+    ACCESS_TOKEN_SECRET_KEY = access token secret key
+    EXPiRES_TOKEN_DATE = your expiration token date
+    REFRESH_TOKEN_SECRET_KEY = your refresh token secret key
     ```
 5. Start the backend server
     ```bash
