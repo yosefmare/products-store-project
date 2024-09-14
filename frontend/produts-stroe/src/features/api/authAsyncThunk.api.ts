@@ -32,10 +32,19 @@ export const auth = createAsyncThunk('auth/loginAndRegister', async (entity: Ent
 export const loadUserDataFromLocalStorage = (): Auth | null => {
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+    
     if (user && token) {
-        return { ...JSON.parse(user), token };
+        try {
+            const parsedUser = JSON.parse(user);
+            // Ensure the parsedUser is valid and follows the expected structure
+            return { ...parsedUser, token } as Auth;
+        } catch (error) {
+            console.error("Error parsing user data from localStorage:", error);
+            return null; // Return null if parsing fails
+        }
     }
-    return null;
+
+    return null; // Return null if user or token is missing
 };
 
 
