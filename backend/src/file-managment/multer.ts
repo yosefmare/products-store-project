@@ -3,7 +3,8 @@ import { BaseDocument } from 'types/UserAndRegisrationMethodeTypes'
 import { verifyToken } from '../utils/auth'
 import { Request, Response } from 'express'
 import { Model } from 'mongoose'
-
+import os from 'os'
+import path from 'path'
 
 const storage: StorageEngine = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -37,7 +38,21 @@ const setImageProfile = async (req: Request, res: Response, model: Model<BaseDoc
 
         if (userId) {
             // Remove the "public" prefix from the file path
-            const filePathWithoutPublic = req.file.path.replace('..\\frontend\\produts-stroe\\public\\', '');
+            // Detect the operating system
+            const userOS = os.platform(); // Returns 'darwin' for macOS, 'win32' for Windows, etc.
+
+            let publicPath: string;
+
+            // Adjust the publicPath based on the user's system
+            if (userOS === 'win32') {
+                publicPath = path.normalize('..\\frontend\\produts-stroe\\public\\');
+            } else {
+                publicPath = path.normalize('frontend/produts-stroe/public/');
+            }
+
+            // Normalize the file path and remove the "public" prefix
+            const filePath = path.normalize(req.file.path);
+            const filePathWithoutPublic = filePath.replace(publicPath, '');
 
             const user = await model.findOneAndUpdate(
                 { _id: userId.id },
