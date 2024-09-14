@@ -9,7 +9,7 @@ export interface Auth {
     role: string,
     profileImg: string,
     token: string,
-    customerId: null | string
+    customerId?: null | string
 }
 
 interface AuthState {
@@ -29,7 +29,14 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logoutUser: (state) => {
+            state.auth = null;
+            state.loading = false;
+            state.error = null;
+            state.success = ''
+        },
+    },
     extraReducers: (billder) => {
         billder.addCase(auth.pending, (state) => {
             state.loading = true;
@@ -73,5 +80,5 @@ export const authSlice = createSlice({
             })
     }
 })
-
+export const { logoutUser } = authSlice.actions;
 export default authSlice.reducer

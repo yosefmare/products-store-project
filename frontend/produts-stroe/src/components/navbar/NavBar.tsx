@@ -4,6 +4,7 @@ import { useAppSelector } from '../../app/hooks/hooks';
 import { Auth } from '../../features/authSlice';
 import { loadUserDataFromLocalStorage } from '../../features/api/authAsyncThunk.api';
 import ShoppingCard from './ShoppingCard';
+import LogOut from '../login-and-register/LogOut';
 
 const defaultProfileImage: string = '/default-profile-image/default-profile-image.webp'
 
@@ -35,7 +36,10 @@ const NavBar = (): JSX.Element => {
         <div className='flex justify-between py-4 $'>
 
             {/* features */}
+            <div className='flex gap-2 items-center justify-center'>
             <ShoppingCard />
+            <LogOut/>
+            </div>
             {/* main nav content */}
             {userData?.role == 'admin'
                 ?
