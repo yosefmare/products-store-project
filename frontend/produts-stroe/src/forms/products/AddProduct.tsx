@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { addProduct } from '../../features/api/productsAsyncThunk.api';
 import Spinner from '../../ui-models/Spinner';
 import MessagePopup from '../../ui-models/MessagePopup';
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import { handleSubmitFormForPostRquest } from '../functions/mainFunctions';
-import { loadUserDataFromLocalStorage } from '../../features/api/authAsyncThunk.api';
+import { submitproductForms } from '../functions/forms.submite';
 
 
 const AddProduct = () => {
@@ -13,9 +12,14 @@ const AddProduct = () => {
     const [selectedImage, setSelectedImage] = useState<string>('');
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const dispatch = useAppDispatch()
-    const userData = loadUserDataFromLocalStorage()
     const productsState = useAppSelector((state) => state.productsSlice)
 
+    useEffect(() => {
+        setModalDisplay(true)
+        setTimeout(() => {
+            setModalDisplay(false);
+        }, 2000)
+    }, [productsState.error, productsState.success])
 
     const handleCheckboxChange = (category: string): void => {
         // Check if the category is already selected
@@ -51,7 +55,7 @@ const AddProduct = () => {
             <Spinner visibility={productsState.loading} />
             <form className='form' encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmitFormForPostRquest(e, setModalDisplay, dispatch, userData?.token, addProduct, selectedCategories)
+                submitproductForms(e, addProduct, dispatch, selectedCategories)
             }}>
                 <h2 className="form-title">Add Product</h2>
                 <div className={modalDisplay ? 'hidden' : 'outline-form-input'}>

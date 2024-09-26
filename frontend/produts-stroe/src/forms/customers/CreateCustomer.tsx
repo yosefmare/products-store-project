@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import MessagePopup from "../../ui-models/MessagePopup";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import Spinner from "../../ui-models/Spinner";
-import { handleSubmitFormForPostRquest } from "../functions/mainFunctions";
+import { submitcustomerForms } from "../functions/forms.submite";
 import { createCustomer } from "../../features/api/customersAsyncThunk.api";
-import { loadUserDataFromLocalStorage } from "../../features/api/authAsyncThunk.api";
 
 const CreateCustomer = () => {
     const [modalDisplay, setModalDisplay] = useState<boolean>(false);
     const customersState = useAppSelector((state) => state.customersSlice)
     const dispatch = useAppDispatch()
-    const userData = loadUserDataFromLocalStorage()
 
+    useEffect(() => {
+        setModalDisplay(true)
+        setTimeout(() => {
+            setModalDisplay(false);
+        }, 2000)
+    }, [customersState.error, customersState.success])
 
     return (
         <>
@@ -37,7 +41,7 @@ const CreateCustomer = () => {
             <Spinner visibility={customersState.loading} />
             <form className="form" encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmitFormForPostRquest(e, setModalDisplay, dispatch, userData?.token, createCustomer)
+                submitcustomerForms(e, createCustomer, dispatch)
             }}>
                 <h2 className="form-title">Create Customer</h2>
                 <div className="outline-form-input">
