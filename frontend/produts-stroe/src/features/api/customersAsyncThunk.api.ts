@@ -1,9 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { createEntity, getAllEntity, updateEntity } from "../../utils/utils"
-import { AddProductFunctionObject } from "../../types/globalTypes"
 import { loadUserDataFromLocalStorage } from "./authAsyncThunk.api"
 
-const userData = loadUserDataFromLocalStorage()
+export const userData = loadUserDataFromLocalStorage()
 
 
 export const getAllProduts = createAsyncThunk('products/getAllProduts', async () => {
@@ -21,9 +20,9 @@ export const getAllProduts = createAsyncThunk('products/getAllProduts', async ()
     }
 })
 
-export const createCustomer = createAsyncThunk('customer/createCustomer', async ({ entityData }: AddProductFunctionObject) => {
+export const createCustomer = createAsyncThunk('customer/createCustomer', async ({ formData }: {formData: FormData}) => {
     try {
-        const { data, response } = await createEntity('http://localhost:8000/customers/addCustomer', entityData)
+        const { data, response } = await createEntity('http://localhost:8000/customers/addCustomer', formData)
         if (data) {
             // insert customerId to user data in database
             await updateEntity(`http://localhost:8000/users/editProfile/${userData?._id}`, {customerId: data.newEntity._id}, { 'Authorization': `Bearer ${userData?.token}` })

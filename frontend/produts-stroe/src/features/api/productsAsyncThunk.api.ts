@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { createEntity, getAllEntity } from "../../utils/utils"
-import { AddProductFunctionObject } from "../../types/globalTypes"
+import { userData } from "./customersAsyncThunk.api";
+
 
 export const getAllProduts = createAsyncThunk('products/getAllProduts', async () => {
     try {
@@ -17,9 +18,9 @@ export const getAllProduts = createAsyncThunk('products/getAllProduts', async ()
     }
 })
 
-export const addProduct = createAsyncThunk('products/addProduts', async ({ entityData, headers }: AddProductFunctionObject) => {
+export const addProduct = createAsyncThunk('products/addProduts', async ({ formData }: {formData: FormData}) => {
     try {
-        const { data, response } = await createEntity('http://localhost:8000/products/addProduct', entityData, headers)
+        const { data, response } = await createEntity('http://localhost:8000/products/addProduct', formData, { 'Authorization': `Bearer ${userData?.token}` })
         if (data) {
             console.log(data);
             return data
