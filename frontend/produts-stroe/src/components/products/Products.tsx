@@ -25,7 +25,9 @@ const Products = () => {
 
   return (
     <div>
-      <Spinner visibility={products.loading} />
+      <Spinner visibility={
+        products.loading ? products.loading : false
+      } />
       <div className="flex justify-between items-center mx-4 sm:mx-12 mt-10">
         <input
           type="text"
