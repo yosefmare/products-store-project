@@ -15,11 +15,14 @@ const AddProduct = () => {
     const productsState = useAppSelector((state) => state.productsSlice)
 
     useEffect(() => {
-        setModalDisplay(true)
-        setTimeout(() => {
-            setModalDisplay(false);
-        }, 2000)
-    }, [productsState.error, productsState.success])
+        if (productsState.success || productsState.error) {
+            setModalDisplay(true);
+            setTimeout(() => {
+                setModalDisplay(false);
+            }, 2000);
+        }
+    }, [productsState.success, productsState.error]);
+    
 
     const handleCheckboxChange = (category: string): void => {
         // Check if the category is already selected
@@ -47,12 +50,22 @@ const AddProduct = () => {
                     icon={<AiFillCheckCircle
                         className="text-3xl"
                     />}
-                    message={productsState.success}
+                    message={
+                        productsState.success ? 
+                        productsState.success
+                        : 
+                        ''
+                    }
                     visibility={modalDisplay}
                 />
             }
 
-            <Spinner visibility={productsState.loading} />
+            <Spinner visibility={
+                productsState.loading ? 
+                productsState.loading
+                : 
+                false
+                } />
             <form className='form' encType='multipart/form-data' onSubmit={(e) => {
                 e.preventDefault();
                 submitproductForms(e, addProduct, dispatch, selectedCategories)

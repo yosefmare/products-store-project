@@ -12,9 +12,9 @@ export interface Products {
 interface ProdutsState {
     products: Products[];
     showResponseMessage: boolean;
-    loading: boolean;
+    loading: boolean | null;
     error: string | undefined | null;
-    success: string;
+    success: string | null;
 }
 
 const initialState: ProdutsState = {
@@ -22,7 +22,7 @@ const initialState: ProdutsState = {
     showResponseMessage: false,
     loading: false,
     error: null,
-    success: ''
+    success: null,
 }
 
 

@@ -12,10 +12,12 @@ const CreateCustomer = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        setModalDisplay(true)
-        setTimeout(() => {
-            setModalDisplay(false);
-        }, 2000)
+        if (customersState.success || customersState.error) {
+            setModalDisplay(true)
+            setTimeout(() => {
+                setModalDisplay(false);
+            }, 2000)
+        }
     }, [customersState.error, customersState.success])
 
     return (

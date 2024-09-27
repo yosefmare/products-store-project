@@ -1,12 +1,20 @@
 import { FormEvent } from "react";
 import { auth } from "../../features/api/authAsyncThunk.api";
 
-export const submitAuthForms = (endPoint: string, evemt: FormEvent<HTMLFormElement>, dispatch: Function) => {
+export const submitAuthForms = (
+    endPoint: string,
+    evemt: FormEvent<HTMLFormElement>,
+    dispatch: Function
+) => {
     const formData = new FormData(evemt.currentTarget);
     dispatch(auth({ endPoint, formData }))
 }
 
-export const submitcustomerForms = (event: FormEvent<HTMLFormElement>, customerAsyncThunk: Function, dispatch: Function) => {
+export const submitcustomerForms = (
+    event: FormEvent<HTMLFormElement>,
+    customerAsyncThunk: Function,
+    dispatch: Function
+) => {
     const formData = new FormData(event.currentTarget);
     dispatch(customerAsyncThunk({ formData }))
 }
