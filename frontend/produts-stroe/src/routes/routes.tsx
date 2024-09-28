@@ -8,7 +8,8 @@ import Products from "../components/products/Products";
 import ProfileImageUpdate from "../forms/user.profile/ProfileImageUpdate";
 import ProductDetail from "../components/products/ProductDetail";
 import CreateCustomer from "../forms/customers/CreateCustomer";
-import SuccessOrder from "../components/SuccessOrder";
+import SuccessOrder from "../components/perchases/SuccessOrder";
+import DisplayCustomers from "../components/customers/displayCustomers"
 
 const router = createBrowserRouter([
     {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
             </div>
     },
     {
+        path: '/customers/displayCustomers',
+        element:
+            <div>
+                <NavBar />
+                <DisplayCustomers/>
+            </div>
+    },
+    {
         path: '/customers/createCustomer',
         element:
             <div>
@@ -77,7 +86,7 @@ const router = createBrowserRouter([
             </div>
     },
     {
-        path: '/purchases/showOrder',
+        path: '/purchases/successOrder',
         element:
             <div>
                 <NavBar />
