@@ -50,7 +50,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                 {
                     userData?.customerId
                         ?
-                        <Link to={'/purchases/showOrder'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                        <Link to={'/purchases/successOrder'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                         :
                         <Link to={'/customers/createCustomer'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                 }
