@@ -5,11 +5,13 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import Spinner from "../../ui-models/Spinner";
 import { submitcustomerForms } from "../functions/forms.submite";
 import { createCustomer } from "../../features/api/customersAsyncThunk.api";
+import { useNavigate } from "react-router-dom";
 
 const CreateCustomer = () => {
     const [modalDisplay, setModalDisplay] = useState<boolean>(false);
     const customersState = useAppSelector((state) => state.customersSlice)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (customersState.success || customersState.error) {
@@ -17,6 +19,10 @@ const CreateCustomer = () => {
             setTimeout(() => {
                 setModalDisplay(false);
             }, 2000)
+        }
+
+        if (customersState.success) {
+            navigate('/purchases/showOrder')
         }
     }, [customersState.error, customersState.success])
 
