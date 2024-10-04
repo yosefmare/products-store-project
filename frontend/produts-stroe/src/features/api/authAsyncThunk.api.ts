@@ -52,9 +52,13 @@ export const setProfileImage = createAsyncThunk('auth/setProfileImage', async (e
     try {
         const { data, response } = await createEntity(entity.endPoint, entity.formData, entity.headers)
         if (data) {
-
-            // Save user data to local storage
-            localStorage.setItem('user', JSON.stringify(data.user));
+            // Save user profileImg to local storage
+            let userData = localStorage.getItem('user')
+            if (userData) {
+                let userDataObj = JSON.parse(userData)
+                userDataObj.profileImg = data.user.profileImg
+                localStorage.setItem('user', JSON.stringify(userDataObj));
+            }
             console.log(data)
             return data
         } else {

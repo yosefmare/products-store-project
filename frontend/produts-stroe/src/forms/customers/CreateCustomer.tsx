@@ -22,7 +22,7 @@ const CreateCustomer = () => {
         }
 
         if (customersState.success) {
-            navigate('/purchases/showOrder')
+            navigate('/purchases/successOrder')
         }
     }, [customersState.error, customersState.success])
 
