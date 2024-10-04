@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createCustomer } from "./api/customersAsyncThunk.api"
+import { createCustomer, getAllCustomers } from "./api/customersAsyncThunk.api"
 import { loadUserDataFromLocalStorage } from "./api/authAsyncThunk.api";
 
 export interface Customers {
@@ -57,18 +57,18 @@ export const customersSlice = createSlice({
                 state.showResponseMessage = true
             })
 
-        // builder
-        //     .addCase(getAllProduts.pending, (state) => {
-        //         state.loading = true
-        //     })
-        //     .addCase(getAllProduts.fulfilled, (state, action) => {
-        //         state.loading = false
-        //         state.products = action.payload
-        //     })
-        //     .addCase(getAllProduts.rejected, (state, action) => {
-        //         state.loading = false
-        //         state.error = action.error.message
-        //     })
+        builder
+            .addCase(getAllCustomers.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getAllCustomers.fulfilled, (state, action) => {
+                state.loading = false
+                state.customers = action.payload
+            })
+            .addCase(getAllCustomers.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+            })
     }
 })
 
