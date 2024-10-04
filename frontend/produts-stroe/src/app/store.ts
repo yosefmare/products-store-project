@@ -3,6 +3,7 @@ import  authSlice  from '../features/authSlice';
 import { configureStore } from '@reduxjs/toolkit'
 import shoppingCardCounter  from './reducers/soppingCard.counte.reducer';
 import customersSlice from '../features/customersSlice';
+import perchasesSlice from '../features/perchasesSlice';
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         authSlice,
         shoppingCardCounter,
         customersSlice,
+        perchasesSlice,
     },
 })
 
