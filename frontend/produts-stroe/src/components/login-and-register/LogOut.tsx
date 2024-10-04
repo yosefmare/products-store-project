@@ -1,6 +1,7 @@
 import React from 'react';
-import { 
-    useNavigate } from 'react-router-dom';
+import {
+    useNavigate
+} from 'react-router-dom';
 import { useAppDispatch } from '../../app/hooks/hooks';
 import { logoutUser } from '../../features/authSlice';
 
@@ -8,8 +9,7 @@ const LogoutButton: React.FC = () => {
     const navigate = useNavigate();
     const dispath = useAppDispatch()
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        localStorage.clear();
         dispath(logoutUser())
         navigate("/login")
     };

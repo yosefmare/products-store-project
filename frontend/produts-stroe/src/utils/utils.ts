@@ -21,9 +21,11 @@ export const updateEntity = async (path: string, info: any, headers?: Headers): 
     }
 }
 
-export const getAllEntity = async (path: string): Promise<any> => {
+export const getAllEntity = async (path: string, headers?: Headers): Promise<any> => {
     try {
-        const res = await axios.get(path)
+        const res = await axios.get(path, {
+            headers: headers || {}
+        });        
         return res
     } catch (err) {
         console.log(err);

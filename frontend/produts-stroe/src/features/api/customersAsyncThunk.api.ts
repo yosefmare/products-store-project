@@ -5,9 +5,9 @@ import { loadUserDataFromLocalStorage } from "./authAsyncThunk.api"
 export const userData = loadUserDataFromLocalStorage()
 
 
-export const getAllProduts = createAsyncThunk('products/getAllProduts', async () => {
+export const getAllCustomers = createAsyncThunk('products/getAllCustomers', async () => {
     try {
-        const { data, response } = await getAllEntity('http://localhost:8000/products/getAllProducts')
+        const { data, response } = await getAllEntity('http://localhost:8000/customers/getAllCustomers', { 'Authorization': `Bearer ${userData?.token}` })
     if (data) {
         console.log(data);
         return data
