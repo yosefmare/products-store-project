@@ -38,7 +38,6 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                     {quantities.map(product => (
                         <ProductCard
                             key={product._id}
-                            id={product._id}
                             productImg={product.productImg}
                             name={product.name}
                             price={product.price}

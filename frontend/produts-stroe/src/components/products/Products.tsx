@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
 import ProductCard from "./ProductCard";
-import { loadUserDataFromLocalStorage } from "../../features/api/authAsyncThunk.api";
+import { userData } from "../../features/api/customersAsyncThunk.api";
 
 const Products = () => {
   const products = useAppSelector((state) => state.productsSlice);
@@ -14,8 +14,6 @@ const Products = () => {
   useEffect(() => {
     dispatch(getAllProduts());
   }, [dispatch]);
-
-  const userRole = loadUserDataFromLocalStorage();
 
   const filteredProducts = products.products.filter(product => {
     const inputMatch = product.name.toLowerCase().includes(searchTerm.searchByInputFilled.toLowerCase());
@@ -37,7 +35,7 @@ const Products = () => {
           className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
         />
         {
-          userRole?.role === 'admin' ? (
+          userData?.role === 'admin' ? (
             <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
           ) : (
             <select
@@ -62,7 +60,7 @@ const Products = () => {
             price={product.price}
             quatity={0}
             htmlElements={
-              userRole?.role === "admin"? 
+              userData?.role === "admin"? 
               {
                 updateBtn: <button className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</button>,
                 delateBtn: <button className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
