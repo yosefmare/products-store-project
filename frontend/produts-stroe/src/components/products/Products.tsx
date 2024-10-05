@@ -57,11 +57,24 @@ const Products = () => {
         {filteredProducts.map((product) => (
           <ProductCard
             key={product._id}
-            id={product._id}
             productImg={product.productImg}
             name={product.name}
             price={product.price}
             quatity={0}
+            htmlElements={
+              userRole?.role === "admin"? 
+              {
+                updateBtn: <button className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</button>,
+                delateBtn: <button className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
+                showProduct: <></>
+              }
+              :
+              {
+                updateBtn: <></>,
+                delateBtn: <></>,
+                showProduct:<Link to={`/product/${product._id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
+              }
+            }
           />
         ))}
       </div>

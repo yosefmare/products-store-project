@@ -1,17 +1,31 @@
-import { Link } from "react-router-dom"
+import { ReactElement } from "react"
 
 
 
 type ProductCardProps = {
-    id: string
     name: string,
     price: number,
     productImg: string,
-    quatity: number
+    quatity: number,
+    htmlElements?: {
+        updateBtn: ReactElement,
+        delateBtn: ReactElement,
+        showProduct : ReactElement,
+    }
 }
 
-const ProductCard = ({ name, price, productImg, id, quatity = 0 }: ProductCardProps) => {
+const ProductCard = ({
+    name,
+    price,
+    productImg,
+    quatity = 0,
+    htmlElements = {
+        updateBtn: <></>,
+        delateBtn: <></>,
+        showProduct: <></>,
+    } }: ProductCardProps) => {
 
+    const { updateBtn, delateBtn, showProduct} = htmlElements
 
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto flex flex-col sm:flex-row gap-3 bg-white p-4 sm:p-6 relative">
@@ -30,7 +44,11 @@ const ProductCard = ({ name, price, productImg, id, quatity = 0 }: ProductCardPr
                         ${price}
                     </p>
                 </div>
-                <Link to={`/product/${id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
+                <div className="flex gap-3">
+                    {updateBtn}
+                    {delateBtn}
+                    {showProduct}
+                </div>
             </div>
         </div>
     )
