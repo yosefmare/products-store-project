@@ -10,7 +10,7 @@ const defaultProfileImage: string = '/default-profile-image/default-profile-imag
 
 const navLinks = [
     { content: 'products', path: '/products' },
-    { content: 'customers', path: '/customers/displayCustomers' },
+    { content: 'customers', path: '/customers' },
     { content: 'purchases', path: '/purchases' }
 ];
 
