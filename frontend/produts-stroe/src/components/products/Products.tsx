@@ -70,7 +70,7 @@ const Products = () => {
               {
                 updateBtn: <></>,
                 delateBtn: <></>,
-                showProduct:<Link to={`/product/${product._id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
+                showProduct:<Link to={`/products/${product._id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
               }
             }
           />
