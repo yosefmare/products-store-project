@@ -36,7 +36,7 @@ const Products = () => {
         />
         {
           userData?.role === 'admin' ? (
-            <Link to={'/products/AddProduct'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
+            <Link to={'/products/create'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
           ) : (
             <select
               onChange={(e) => setSearchTerm({ ...searchTerm, searchBySelectFilled: e.target.value, searchByInputFilled: '' })}

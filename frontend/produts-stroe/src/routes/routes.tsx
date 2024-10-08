@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Board from "../components/login-and-register/Board";
 import Login from "../components/login-and-register/Login";
 import Register from "../components/login-and-register/Register";
@@ -34,36 +34,44 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Layout />,
-        errorElement: <ErrorPage/>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: 'user/profile/updateImage',
                 element:
-                        <ProfileImageUpdate />
+                    <ProfileImageUpdate />
             },
             {
                 path: 'products',
-                element: <Products />,
-            },
+                element: <Outlet />,
+                children: [
                     {
-                        path: 'products/:id',
-                        element:
-                                <ProductDetail />
+                        index: true,
+                        element: <Products />
                     },
                     {
-                        path: 'products/AddProduct',
-                        element:
-                            <AddProduct />
+                        path: ':id',
+                        element: <ProductDetail />
                     },
-            {
-                path: 'customers/displayCustomers',
-                element:
-                    <DisplayCustomers />
+                    {
+                        path: 'create',
+                        element: <AddProduct />
+                    },
+                ]
             },
             {
-                path: 'customers/createCustomer',
-                element:
-                    <CreateCustomer />
+                path: 'customers',
+                element: <Outlet />,
+                children: [
+                    {
+                        index: true,
+                        element: <DisplayCustomers />
+                    },
+                    {
+                        path: 'create',
+                        element: <CreateCustomer />
+                    },
+                ]
             },
             // {
             //     path: '/purchases',

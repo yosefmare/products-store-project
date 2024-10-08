@@ -57,7 +57,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                             }
                         }} to={'/purchases/successOrder'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                         :
-                        <Link to={'/customers/createCustomer'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                        <Link to={'/customers/create'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                 }
             </div>
         </div>
