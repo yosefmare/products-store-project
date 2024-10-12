@@ -99,12 +99,12 @@ export const updateEntity = async <T extends BaseDocument>(
 ): Promise<void> => {
     const { id } = req.params;
     const { body } = req;
-    const { filename } = req.file;
-
+    
     try {
         const existingEntity = await model.findById(id);
         if (existingEntity ){ 
-            if (filename) {
+            if (req.file) {
+                const { filename } = req.file;
                 const newEntity = { ...body, productImg: filename };
                 existingEntity.set(newEntity);
             } else {
