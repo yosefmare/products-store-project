@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addProduct, getAllProduts } from "./api/productsAsyncThunk.api"
+import { addProduct, deleteProduct, editProduct, getAllProduts } from "./api/productsAsyncThunk.api"
 
 export interface Products {
     _id: string,
@@ -45,6 +45,38 @@ export const productsSlice = createSlice({
                 state.showResponseMessage = true
             })
             .addCase(addProduct.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+                state.showResponseMessage = true
+            })
+
+            builder
+            .addCase(editProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(editProduct.fulfilled, (state, action) => {
+                state.loading = false
+                state.error = null
+                state.success = action.payload.message
+                state.showResponseMessage = true
+            })
+            .addCase(editProduct.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+                state.showResponseMessage = true
+            })
+            
+            builder
+            .addCase(deleteProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.loading = false
+                state.error = null
+                state.success = action.payload.message
+                state.showResponseMessage = true
+            })
+            .addCase(deleteProduct.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message
                 state.showResponseMessage = true

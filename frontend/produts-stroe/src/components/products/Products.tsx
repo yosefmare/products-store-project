@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
-import { getAllProduts } from "../../features/api/productsAsyncThunk.api";
+import { deleteProduct, getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
 import ProductCard from "./ProductCard";
 import { userData } from "../../features/api/customersAsyncThunk.api";
@@ -62,8 +62,12 @@ const Products = () => {
             htmlElements={
               userData?.role === "admin"? 
               {
-                updateBtn: <button className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</button>,
-                delateBtn: <button className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
+                updateBtn: <Link to={`/products/edit/${product._id}`} className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</Link>,
+                delateBtn: <button onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(deleteProduct({id: product._id}));
+                  window.location.reload();
+                }} className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
                 showProduct: <></>
               }
               :
