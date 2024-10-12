@@ -23,7 +23,8 @@ export const submitproductForms = (
     event: FormEvent<HTMLFormElement>,
     productAsyncThunk: Function,
     dispatch: Function,
-    selectedCategories?: string[]
+    selectedCategories?: string[],
+    productId?: string
 ) => {
     const formData = new FormData(event.currentTarget);
 
@@ -34,5 +35,9 @@ and add it to the the form data */
             formData.append('category', category)
         })
     }
-    dispatch(productAsyncThunk({ formData }))
+    if (productId) {
+        dispatch(productAsyncThunk({ formData, id: productId }))
+    } else{
+        dispatch(productAsyncThunk({ formData }))
+    }
 }
