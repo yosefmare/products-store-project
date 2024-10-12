@@ -16,7 +16,7 @@ const ProfileImageUpdate = () => {
 });
   const [newProfileImage, setNewProfileImage] = useState<string>('');
   const authSlice = useAppSelector((state) => state.authSlice)
-  const defaultProfileImage = '../../../public/default-profile-image/default-profile-image.webp'
+  const defaultProfileImage = '/default-profile-image/default-profile-image.webp'
   const dispatch = useAppDispatch()
 
 useEffect(() => {
@@ -50,7 +50,7 @@ if (formData) {
           e.preventDefault();
           setSlectedProfileImageInState(e)
         }} id="profileImage" className="hidden" type="file" name='file' />
-        <img className={`${newProfileImage ? 'hidden' : 'block'} rounded-full w-56 h-56`} src={`${userData?.profileImg? `../../../public/${userData?.profileImg}`: defaultProfileImage}`} alt="profileImage" />
+        <img className={`${newProfileImage ? 'hidden' : 'block'} rounded-full w-56 h-56`} src={`${userData?.profileImg? `/${userData?.profileImg}`: defaultProfileImage}`} alt="profileImage" />
         <img className={`${newProfileImage ? 'block' : 'hidden'} rounded-full w-56 h-56`} src={newProfileImage} alt="profileImage" />
         <label htmlFor="profileImage" className="btn">select image</label>
         <button type="submit" className="btn">change image</button>

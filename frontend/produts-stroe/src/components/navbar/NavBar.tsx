@@ -57,7 +57,7 @@ const NavBar = (): JSX.Element => {
                 <div className='flex gap-2 justify-center items-center mr-4'>
                     <h3 className=' font-bold'>{userData?.userName}</h3>
                     <Link to={'/user/profile/updateImage'}>
-                        <img className='w-10 h-10 rounded-full cursor-pointer' src={`${userData?.profileImg ? `../../../public/${userData?.profileImg}` : defaultProfileImage}`} alt="profileImg" />
+                        <img className='w-10 h-10 rounded-full cursor-pointer' src={`${userData?.profileImg ? `/${userData?.profileImg}` : defaultProfileImage}`} alt="profileImg" />
                     </Link>
                 </div>
             </div>
