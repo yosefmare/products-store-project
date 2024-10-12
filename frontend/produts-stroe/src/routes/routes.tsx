@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import Board from "../components/login-and-register/Board";
 import Login from "../components/login-and-register/Login";
 import Register from "../components/login-and-register/Register";
-import AddProduct from "../forms/products/AddProduct";
+import AddAndEditProduct from "../forms/products/AddAndEditProduct";
 import Products from "../components/products/Products";
 import ProfileImageUpdate from "../forms/user.profile/ProfileImageUpdate";
 import ProductDetail from "../components/products/ProductDetail";
@@ -55,7 +55,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'create',
-                        element: <AddProduct />
+                        element: <AddAndEditProduct title="Add Product" />
+                    },
+                    {
+                        path: 'edit/:id',
+                        element: <AddAndEditProduct title="Edit Product" />
                     },
                 ]
             },
