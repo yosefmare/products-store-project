@@ -6,6 +6,7 @@ import './style.scss';
 import { Link } from 'react-router-dom';
 import { userData } from '../../features/api/customersAsyncThunk.api';
 import { createPerchas } from '../../features/api/perchasesAsyncThunk.api';
+import { getSelectedProductsWithQuantities } from '../../utils/utils';
 
 interface SideBarProps {
     isOpen: boolean;
@@ -20,12 +21,7 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
         dispatch(getAllProduts());
     }, [dispatch]);
 
-    const userItems = products.filter(product => addedToCardItems.includes(product._id));
-
-    const quantities = userItems.map(product => ({
-        ...product,
-        quantity: addedToCardItems.filter(item => item === product._id).length,
-    }));
+    const quantities =  getSelectedProductsWithQuantities(addedToCardItems, products)
 
     const totalPrice = quantities.reduce((total, product) => total + product.price * product.quantity, 0);
 
@@ -51,11 +47,11 @@ const SideBar: React.FC<SideBarProps> = ({ isOpen }) => {
                     userData?.customerId
                         ?
                         <Link onClick={() => {
-                            if (userData?.customerId && quantities) {
+                            if (userData?.customerId) {
                                 dispatch(createPerchas({customerId: userData?.customerId, products: quantities}))
 
                             }
-                        }} to={'/purchases/successOrder'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
+                        }} to={'/purchase/successOrder'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                         :
                         <Link to={'/customers/create'} className="btn text-center w-full">Total: ${totalPrice.toFixed(2)}</Link>
                 }

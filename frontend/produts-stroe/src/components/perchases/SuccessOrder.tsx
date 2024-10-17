@@ -1,15 +1,11 @@
 import { useAppSelector } from "../../app/hooks/hooks";
+import { getSelectedProductsWithQuantities } from "../../utils/utils";
 
 const SuccessOrder = () => {
     const shoppingCardSlice = useAppSelector((state) => state.shoppingCardCounter.itemCount)
     const products = useAppSelector((state) => state.productsSlice.products);
 
-    const userItems = products.filter(product => shoppingCardSlice.includes(product._id));
-
-    const selectedProducts = userItems.map(product => ({
-        ...product,
-        quantity: shoppingCardSlice.filter(item => item === product._id).length,
-    }));
+    const selectedProducts = getSelectedProductsWithQuantities(shoppingCardSlice, products);
 
     return (
         <div className="container mx-auto p-4">
