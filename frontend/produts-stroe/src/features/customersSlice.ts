@@ -7,6 +7,7 @@ export interface Customers {
     firstName: string,
     lastName: string,
     city: string,
+    purchases: string[]
 }
 
 interface CustomersState {
