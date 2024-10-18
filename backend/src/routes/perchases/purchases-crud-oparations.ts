@@ -7,10 +7,10 @@ import { upload } from "../../file-managment/multer";
 const router = Router()
 router
     .get('/purchases/getAllPurchases', (req: Request, res: Response) => {
-        protectionRoutesHandler(req, res, getAllEntities.bind(null, req, res, PurchasesModel, ['product', 'customer']))
+        protectionRoutesHandler(req, res, getAllEntities.bind(null, req, res, PurchasesModel, ['products', 'customerId']))
     })
     .get('/purchases/getPurchase/:id', (req: Request, res: Response) => {
-        protectionRoutesHandler(req, res, getEntityById.bind(null, req, res, PurchasesModel, ['product', 'customer']))
+        protectionRoutesHandler(req, res, getEntityById.bind(null, req, res, PurchasesModel, ['products', 'customerId']))
     })
     .post('/purchases/addPurchases', upload.single('file'), (req: Request, res: Response) => createEntity(req, res, PurchasesModel))
     .delete('/purchases/deletePurchases/:id', (req: Request, res: Response) => deleteEntity(req, res, PurchasesModel))

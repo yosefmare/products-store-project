@@ -5,11 +5,11 @@ import { PurchasesDocument } from '../types/UserAndRegisrationMethodeTypes';
 const ObjectId = Schema.Types.ObjectId
 
 const PurchasesSchema = new Schema({
-    customer: {
+    customerId: {
         type: ObjectId,
         ref: 'customers'
     },
-    product: [
+    products: [
         {
             type: ObjectId,
             ref: 'products'
