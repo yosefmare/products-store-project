@@ -9,7 +9,7 @@ const ErrorPage = () => {
             </div>
             <div className="mt-5">
                 <Link
-                    to="/"
+                    to="/products"
                     className="relative inline-block text-sm font-medium text-pink-500 group focus:outline-none focus:ring"
                 >
                     <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-pink-500 group-hover:translate-y-0 group-hover:translate-x-0"></span>
