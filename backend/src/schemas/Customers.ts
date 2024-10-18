@@ -20,6 +20,10 @@ const CustomersSchema = new Schema({
     city: {
         type: String,
         required: true
+    },
+    purchases: {
+        type: [ObjectId],
+        ref: 'purchases'
     }
 }, { versionKey: false })
 

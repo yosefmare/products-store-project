@@ -11,7 +11,7 @@ router
         protectionRoutesHandler(req, res, getAllEntities.bind(null, req, res, CustomersModel))
     })
     .get('/customers/getCustomer/:id', (req: Request, res: Response) => {
-        protectionRoutesHandler(req, res, getEntityById.bind(null, req, res, CustomersModel))
+        protectionRoutesHandler(req, res, getEntityById.bind(null, req, res, CustomersModel, ['purchases']))
     })
     .post('/customers/addCustomer', upload.single('file'), (req: Request, res: Response) => createEntity(req, res, CustomersModel))
     .patch('/customers/updateCustomer/:id', upload.single('file'), (req: Request, res: Response) => {
