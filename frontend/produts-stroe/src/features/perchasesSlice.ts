@@ -1,22 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createPerchas } from './api/perchasesAsyncThunk.api';
+import { createPerchas, getPurchase } from './api/perchasesAsyncThunk.api';
+import { Customers } from "./customersSlice";
 
-export interface Perchases {
+export interface Perchase {
     _id: string,
-    customerId: string,
-    procuts: string[]
-    date: Date
+    customerId: Customers,
+    products: string[]
+    date: Date | null
 }
 
 interface PerchasesState {
-    perchases: Perchases[];
+    perchase: Perchase;
     loading: boolean | null;
     error: string | undefined | null;
     success: string | null;
 }
 
 const initialState: PerchasesState = {
-    perchases: [],
+    perchase: {
+        _id: '',
+        customerId: {
+            _id: '',
+            firstName: '',
+            lastName: '',
+            city: '',
+            purchases: []
+        },
+        products: [],
+        date: null
+    },
     loading: false,
     error: null,
     success: null,
@@ -24,7 +36,7 @@ const initialState: PerchasesState = {
 
 
 export const perchasesSlice = createSlice({
-    name: 'products',
+    name: 'purchase',
     initialState,
     reducers: {
 
@@ -45,18 +57,18 @@ export const perchasesSlice = createSlice({
                 state.error = action.error.message
             })
 
-        // builder
-        //     .addCase(getAllProduts.pending, (state) => {
-        //         state.loading = true
-        //     })
-        //     .addCase(getAllProduts.fulfilled, (state, action) => {
-        //         state.loading = false
-        //         state.perchases = action.payload
-        //     })
-        //     .addCase(getAllProduts.rejected, (state, action) => {
-        //         state.loading = false
-        //         state.error = action.error.message
-        //     })
+        builder
+            .addCase(getPurchase.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getPurchase.fulfilled, (state, action) => {
+                state.loading = false
+                state.perchase = action.payload
+            })
+            .addCase(getPurchase.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+            })
     }
 })
 
