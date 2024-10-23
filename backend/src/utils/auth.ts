@@ -27,10 +27,11 @@ export const register = async (req: Request, res: Response) => {
         if (password && email && role && userName) {
             const emailExist = await UserModel.findOne({ email })
             if (emailExist) {
-                res.status(404).json({ message: 'email already Exist' })
+                res.status(400).json({ message: 'email already Exist' })
             } else {
                 const user = await UserModel.create({ userName, email, password, role })
                 const token = signToken(user._id, user.role)
+                user.password = undefined;
                 res.status(201).json({ user, token, message: 'user register success' })
             }
         } else {
@@ -42,22 +43,30 @@ export const register = async (req: Request, res: Response) => {
     }
 }
 
-
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(404).json({ message: 'please provide a valid email amd password' })
+        return res.status(400).json({ message: 'Please provide a valid email and password' });
     }
 
-    const user = await UserModel.findOne({ email }).select('+password')
+    const user = await UserModel.findOne({ email }).select('+password');
+    
     if (!user || !(await user.correctPassword(password, user.password))) {
-        return res.status(404).json({ message: 'invalid email or password' })
+        return res.status(404).json({ message: 'Invalid email or password' });
     }
 
-    const token = signToken(user._id, user.role)
-    return res.status(200).json({ message: 'success', user, token })
-}
+    const token = signToken(user._id, user.role);
+
+    user.password = undefined;
+
+    return res.status(200).json({
+        message: 'Success',
+        user,
+        token,
+    });
+};
+
 
 export const protectionRoutesHandler = async (req: Request, res: Response, model: Function) => {
     //     check if the user is admin
