@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     profileImg:{
         type: String,
-        default: ''
+        default: null
     },
     customerId:{
         type: ObjectId,

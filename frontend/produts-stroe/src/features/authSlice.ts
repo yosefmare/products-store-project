@@ -7,7 +7,7 @@ export interface Auth {
     email: string,
     password: string,
     role: string,
-    profileImg: string,
+    profileImg: null | string,
     token: string,
     customerId?: null | string
 }
