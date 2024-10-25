@@ -19,8 +19,10 @@ export const loadUserDataFromLocalStorage = (): Auth | null => {
     return null; // Return null if user or token is missing
 };
 
-const { token } = loadUserDataFromLocalStorage() ?? { token: null };
-const headers = token ? { 'authorization': `Bearer ${token}` } : {};
+const getHeaders = () => {
+    const { token } = loadUserDataFromLocalStorage() ?? { token: null };
+    return token ? { 'authorization': `Bearer ${token}` } : {};
+};
 
 
 export const createEntity = async (path: string, info: any): Promise<any> => {
@@ -29,7 +31,7 @@ export const createEntity = async (path: string, info: any): Promise<any> => {
             path,
             info,
             {
-                headers
+                headers: getHeaders(),
             }
         )
         return res
@@ -49,7 +51,7 @@ export const updateEntity = async (path: string, info: any): Promise<any> => {
             path,
             info,
             {
-                headers
+                headers: getHeaders(),
             }
         )
         return res
@@ -68,7 +70,7 @@ export const deleteEntity = async (path: string): Promise<any> => {
         const res = await axios.delete(
             path,
             {
-                headers
+                headers: getHeaders(),
             }
         )
         return res
@@ -87,7 +89,7 @@ export const getAllEntity = async (path: string): Promise<any> => {
         const res = await axios.get(
             path,
             {
-                headers
+                headers: getHeaders(),
             }
         );
         return res
