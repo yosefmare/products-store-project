@@ -1,13 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { createEntity, getAllEntity, updateEntity } from "../../utils/utils"
-import { loadUserDataFromLocalStorage } from "./authAsyncThunk.api"
+import { createEntity, getAllEntity, loadUserDataFromLocalStorage, updateEntity } from "../../utils/utils"
 
 export const userData = loadUserDataFromLocalStorage()
 
 
 export const getAllCustomers = createAsyncThunk('products/getAllCustomers', async () => {
     try {
-        const { data, response } = await getAllEntity('http://localhost:8000/customers/getAllCustomers', { 'Authorization': `Bearer ${userData?.token}` })
+        const { data, response } = await getAllEntity('http://localhost:8000/customers/getAllCustomers')
     if (data) {
         console.log(data);
         return data
@@ -25,7 +24,7 @@ export const createCustomer = createAsyncThunk('customer/createCustomer', async 
         const { data, response } = await createEntity('http://localhost:8000/customers/addCustomer', formData)
         if (data) {
             // insert customerId to user data in database
-            await updateEntity(`http://localhost:8000/users/editProfile/${userData?._id}`, {customerId: data.newEntity._id}, { 'Authorization': `Bearer ${userData?.token}` })
+            await updateEntity(`http://localhost:8000/users/editProfile/${userData?._id}`, {customerId: data.newEntity._id})
             console.log(data);
             return data
         } else {

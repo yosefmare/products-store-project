@@ -1,47 +1,103 @@
 import axios from 'axios';
-import { Headers } from '../types/globalTypes';
 import { Products } from '../features/ProductsSlice';
+import { Auth } from '../features/authSlice';
+
+export const loadUserDataFromLocalStorage = (): Auth | null => {
+    const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    
+    if (user && token) {
+        try {
+            const parsedUser = JSON.parse(user);
+            // Ensure the parsedUser is valid and follows the expected structure
+            return { ...parsedUser, token } as Auth;
+        } catch (error) {
+            console.error("Error parsing user data from localStorage:", error);
+            return null; // Return null if parsing fails
+        }
+    }
+    return null; // Return null if user or token is missing
+};
+
+const { token } = loadUserDataFromLocalStorage() ?? { token: null };
+const headers = token ? { 'authorization': `Bearer ${token}` } : {};
 
 
-export const createEntity = async (path: string, info: any, headers?: Headers): Promise<any> => {
+export const createEntity = async (path: string, info: any): Promise<any> => {
     try {
-        const res = await axios.post(path, info, { headers })
+        const res = await axios.post(
+            path,
+            info,
+            {
+                headers
+            }
+        )
         return res
     } catch (err) {
         console.log(err);
-        return err
+        return {
+            error: true,
+            message: err instanceof Error ? err.message : 'An unknown error occurred',
+            data: null
+        };
     }
 }
 
-export const updateEntity = async (path: string, info: any, headers?: Headers): Promise<any> => {
+export const updateEntity = async (path: string, info: any): Promise<any> => {
     try {
-        const res = await axios.patch(path, info, { headers })
+        const res = await axios.patch(
+            path,
+            info,
+            {
+                headers
+            }
+        )
         return res
     } catch (err) {
         console.log(err);
-        return err
+        return {
+            error: true,
+            message: err instanceof Error ? err.message : 'An unknown error occurred',
+            data: null
+        };
     }
 }
 
-export const deleteEntity = async (path: string, headers?: Headers): Promise<any> => {
+export const deleteEntity = async (path: string): Promise<any> => {
     try {
-        const res = await axios.delete(path, { headers })
+        const res = await axios.delete(
+            path,
+            {
+                headers
+            }
+        )
         return res
     } catch (err) {
         console.log(err);
-        return err
+        return {
+            error: true,
+            message: err instanceof Error ? err.message : 'An unknown error occurred',
+            data: null
+        };
     }
 }
 
-export const getAllEntity = async (path: string, headers?: Headers): Promise<any> => {
+export const getAllEntity = async (path: string): Promise<any> => {
     try {
-        const res = await axios.get(path, {
-            headers: headers || {}
-        });
+        const res = await axios.get(
+            path,
+            {
+                headers
+            }
+        );
         return res
     } catch (err) {
         console.log(err);
-        return err
+        return {
+            error: true,
+            message: err instanceof Error ? err.message : 'An unknown error occurred',
+            data: null
+        };
     }
 }
 

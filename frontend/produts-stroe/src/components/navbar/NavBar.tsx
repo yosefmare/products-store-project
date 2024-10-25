@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks/hooks';
 import { Auth } from '../../features/authSlice';
-import { loadUserDataFromLocalStorage } from '../../features/api/authAsyncThunk.api';
 import ShoppingCard from './ShoppingCard';
 import LogOut from '../login-and-register/LogOut';
+import { loadUserDataFromLocalStorage } from '../../utils/utils';
 
 const defaultProfileImage: string = '/default-profile-image/default-profile-image.webp'
 

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createCustomer, getAllCustomers } from "./api/customersAsyncThunk.api"
-import { loadUserDataFromLocalStorage } from "./api/authAsyncThunk.api";
+import { loadUserDataFromLocalStorage } from "../utils/utils";
 
 export interface Customers {
     _id: string,
