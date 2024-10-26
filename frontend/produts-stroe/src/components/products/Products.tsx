@@ -4,13 +4,14 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
 import { deleteProduct, getAllProduts } from "../../features/api/productsAsyncThunk.api";
 import Spinner from "../../ui-models/Spinner";
 import ProductCard from "./ProductCard";
+import { loadUserDataFromLocalStorage } from "../../utils/utils";
 
 const Products = () => {
   const products = useAppSelector((state) => state.productsSlice);
-  const userData = useAppSelector((state) => state.authSlice.auth); // Dynamically select userData from Redux store
+  const authSlice = useAppSelector((state) => state.authSlice.auth); // Dynamically select userData from Redux store
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState({ searchByInputFilled: '', searchBySelectFilled: '' });
-
+  const userData = loadUserDataFromLocalStorage();
   useEffect(() => {
     dispatch(getAllProduts());
   }, [dispatch]);
@@ -32,7 +33,7 @@ const Products = () => {
           onChange={(e) => setSearchTerm({ ...searchTerm, searchByInputFilled: e.target.value, searchBySelectFilled: '' })}
           className="ml-14 p-2 border border-gray-300 rounded-lg w-1/2 sm:w-1/4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800"
         />
-        {userData?.role === 'admin' ? (
+        {userData?.role === 'admin' || authSlice?.role === 'admin' ? (
           <Link to={'/products/create'} className="btn font-bold text-xl h-12 w-12 rounded-full flex items-center justify-center mx-2 sm:mx-10">+</Link>
         ) : (
           <select
@@ -56,22 +57,22 @@ const Products = () => {
             price={product.price}
             quatity={0}
             htmlElements={
-              userData?.role === "admin"? 
-              {
-                updateBtn: <Link to={`/products/edit/${product._id}`} className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</Link>,
-                delateBtn: <button onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(deleteProduct({id: product._id}));
-                  window.location.reload();
-                }} className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
-                showProduct: <></>
-              }
-              :
-              {
-                updateBtn: <></>,
-                delateBtn: <></>,
-                showProduct:<Link to={`/products/${product._id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
-              }
+              userData?.role === "admin" ?
+                {
+                  updateBtn: <Link to={`/products/edit/${product._id}`} className="bg-sky-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all duration-300">Update</Link>,
+                  delateBtn: <button onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(deleteProduct({ id: product._id }));
+                    window.location.reload();
+                  }} className="bg-red-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300">Delete</button>,
+                  showProduct: <></>
+                }
+                :
+                {
+                  updateBtn: <></>,
+                  delateBtn: <></>,
+                  showProduct: <Link to={`/products/${product._id}`} className="mt-4 sm:mt-0 self-start sm:self-auto btn">Show Product</Link>
+                }
             }
           />
         ))}

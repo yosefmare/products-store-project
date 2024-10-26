@@ -24,7 +24,7 @@ const NavBar = (): JSX.Element => {
             <LogOut/>
             </div>
             {/* main nav content */}
-            {authSlice?.role == 'admin'
+            {authSlice?.role == 'admin' || userData?.role == 'admin'
                 ?
                 <ul className='flex gap-10'>
                     {
