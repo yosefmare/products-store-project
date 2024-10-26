@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks/hooks';
-import { Auth } from '../../features/authSlice';
 import ShoppingCard from './ShoppingCard';
 import LogOut from '../login-and-register/LogOut';
 import { loadUserDataFromLocalStorage } from '../../utils/utils';
 
 const defaultProfileImage: string = '/default-profile-image/default-profile-image.webp'
-
+const userData = loadUserDataFromLocalStorage()
 const navLinks = [
     { content: 'products', path: '/products' },
     { content: 'customers', path: '/customers' },
@@ -15,22 +13,7 @@ const navLinks = [
 ];
 
 const NavBar = (): JSX.Element => {
-
-    const [userData, setUserData] = useState<Auth | null>({
-        _id: '',
-        userName: '',
-        email: '',
-        password: '',
-        role: '',
-        profileImg: '',
-        token: ''
-    });
-    const authSlice = useAppSelector((state) => state.authSlice)
-
-    useEffect(() => {
-        const userData = loadUserDataFromLocalStorage()
-        setUserData(userData)
-    }, [authSlice.auth])
+    const authSlice = useAppSelector((state) => state.authSlice.auth)
 
     return (
         <div className='flex justify-between py-4 $'>
@@ -41,7 +24,7 @@ const NavBar = (): JSX.Element => {
             <LogOut/>
             </div>
             {/* main nav content */}
-            {userData?.role == 'admin'
+            {authSlice?.role == 'admin'
                 ?
                 <ul className='flex gap-10'>
                     {
